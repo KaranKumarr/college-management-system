@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const app = express();
 let bcrypt = require('bcrypt');
+const studentRoutes = require('./routes/Student');
+const facultyRoute = require('./routes/Instructor');
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,12 +29,12 @@ app.get('/', (req, res) => {
 
 })
 
+//Student FILE accessing from here
+app.use(studentRoutes);
 
-app.get('/addStudent', (req, res) => {
 
-
-})
-
+//Instructor FILE accessing from here
+app.use(facultyRoute);
 
 app.listen('3000', () => {
 

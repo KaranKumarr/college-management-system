@@ -1,0 +1,89 @@
+<style>
+    .goBack {
+        width: 8rem;
+        background-color: var(--dark);
+        color: var(--light);
+        transition: 0.2s;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .goBack:hover {
+        opacity: 80%;
+        cursor: pointer;
+    }
+
+    .login-box {
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .login-form {
+
+        background-color: var(--dark);
+
+        height: 60vh;
+        width: 40vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 2rem;
+        padding: 2rem;
+    }
+
+
+    @media only screen and (max-width: 800px) {
+        .login-form {
+            height: 40vh;
+            width: 60vw;
+        }
+    }
+
+
+    .login-form h1 {
+        color: var(--light);
+        font-family: var(--dFont);
+        font-weight: 700;
+        font-size: 2.5rem;
+        letter-spacing: 0.2rem;
+        margin: 1.2rem 0.2rem;
+    }
+
+    .login-form input,
+    button {
+        width: 70%;
+        border: none;
+        outline: none;
+        margin: 1rem;
+        padding: 0.7rem;
+        border-radius: 0.5rem;
+
+    }
+
+    .login-form button {
+        width: 35%;
+        font-size: 2rem;
+        font-weight: 600;
+        transition: 0.2s;
+        transition-timing-function: ease-in;
+        background-color: var(--dark);
+        color: var(--light);
+        border: 2px solid var(--light);
+    }
+
+    .login-form button:hover {
+        cursor: pointer;
+        color: var(--dark);
+        background-color: var(--light);
+    }
+
+    .login-form h5{
+        color: var(--light);
+    }
+
+</style>

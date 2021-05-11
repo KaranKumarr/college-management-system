@@ -14,14 +14,35 @@
 
     <main class="preLogger">
         <div class="Faculty-Box Box">
-            <button class="Faculty-Btn Btn">FACULTY?</button>
+            <button class="Faculty-Btn Btn" onclick="goToFaculty()">FACULTY?</button>
         </div>
 
         <div class="Student-Box Box">
-            <button class="Student-Btn Btn">STUDENT?</button>
+            <button class="Student-Btn Btn" onclick="goToStudent()">STUDENT?</button>
         </div>
     </main>
 
+    <script>
+
+        const goToFaculty = () => {
+
+
+            window.location.href = "/Faculty";
+
+        }
+
+
+        const goToStudent = () => {
+
+
+            window.location.href = "/Student";
+
+        }
+
+    </script>
+
 </body>
+
+
 
 </html>
