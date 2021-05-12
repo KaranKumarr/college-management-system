@@ -8,13 +8,74 @@
     <title>Student | Home</title>
     <%- include("./partials/NavbarCSS.ejs") %>
         <%- include("./partials/defaultCSS.ejs") %>
+
+            <%- include("./partials/ProfileCSS.ejs") %>
 </head>
 
 <body>
-    <%- include("./partials/Navbar.ejs") %>
+    <%- include("./partials/StudentNavbar.ejs") %>
+
+        <main class="Profile">
+
+            <h1 class="Profile-Heading">Request For A Change Of Profile</h1>
+
+            <div class="Profile-Data">
+
+                <div class="Profile-Data-Box">
+                    <h5 class="Profile-Data-Label">Registration ID</h5>
+                    <h5 class="Profile-Data-Field">
+                        <%=Student.StudentID%>
+                    </h5>
+                </div>
+                <div class="Profile-Data-Box">
+                    <h5 class="Profile-Data-Label">Full Name</h5>
+                    <h5 class="Profile-Data-Field">
+                        <%=Student.StudentName%>
+                    </h5>
+                </div>
+                <div class="Profile-Data-Box">
+                    <h5 class="Profile-Data-Label">Gaurdian Name</h5>
+                    <h5 class="Profile-Data-Field">
+                        <%=StudentInfo.GaurdianName%>
+                    </h5>
+                </div>
+                <div class="Profile-Data-Box">
+                    <h5 class="Profile-Data-Label">NIC Number</h5>
+                    <h5 class="Profile-Data-Field">
+                        <%=Student.StudentNIC%>
+                    </h5>
+                </div>
+                <div class="Profile-Data-Box">
+                    <h5 class="Profile-Data-Label">Gender</h5>
+                    <h5 class="Profile-Data-Field">
+                        <%=StudentInfo.Gender%>
+                    </h5>
+                </div>
+                <div class="Profile-Data-Box">
+                    <h5 class="Profile-Data-Label">Telephone</h5>
+                    <h5 class="Profile-Data-Field">
+                        <%=StudentInfo.StudentPhone%>
+                    </h5>
+                </div>
+                <div class="Profile-Data-Box">
+                    <h5 class="Profile-Data-Label">Department</h5>
+                    <h5 class="Profile-Data-Field">
+                        <%=Student.DepartmentName%>
+                    </h5>
+                </div>
+                <div class="Profile-Data-Box">
+                    <h5 class="Profile-Data-Label">Registration ID</h5>
+                    <h5 class="Profile-Data-Field">
+                        <%=Student.StudentID%>
+                    </h5>
+                </div>
 
 
-        <!-- <h1>HELLO STUDENT NAMED <%=Student.StudentName%></h1> -->
+            </div>
+
+            <button class="Profile-btn">Modify</button>
+
+        </main>
 
 </body>
 

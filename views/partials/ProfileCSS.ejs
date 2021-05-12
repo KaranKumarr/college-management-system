@@ -1,0 +1,90 @@
+<style>
+    .Profile {
+        display: flex;
+        flex-direction: column;
+        margin: 1rem;
+        justify-content: space-around;
+        /* padding: 1rem; */
+        border-radius: 7.5px;
+        border: 3px solid var(--dark);
+    }
+
+    .Profile-Heading {
+        color: var(--light);
+        font-size: 1.5rem;
+        background-color: var(--dark);
+        padding: 0.5rem;
+        display: flex;
+        justify-content: center;
+        font-family: var(--dFont);
+        font-weight: 400;
+    }
+
+    .Profile-Data {
+        margin: 0.7rem 0;
+
+    }
+
+    .Profile-Data-Box {
+        display: flex;
+    }
+
+    .Profile-Data-Box h5 {
+        font-size: 1rem;
+
+        font-weight: 300;
+        margin: 0.3rem 0;
+    }
+
+    .Profile-Data-Label {
+        background-color: var(--dark);
+        color: var(--light);
+        width: 50%;
+        padding: 0.3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .Profile-Data-Field {
+        border-top: 5px solid var(--dark);
+        color: var(--dark);
+        border-bottom: 3px solid var(--dark);
+        width: 100%;
+        padding: 0.5rem;
+    }
+
+    .Profile-btn {
+        border: none;
+        outline: none;
+        font-family: var(--sFont);
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        background-color: var(--dark);
+        padding: 0.5rem;
+        color: var(--light);
+        transition: ease-in-out 0.5s;
+    }
+
+    .Profile-btn:hover {
+        opacity: 90%;
+        cursor: pointer;
+    }
+
+    @media only screen and (max-width:800px) {
+
+        .Profile-btn {
+            font-size: 2rem;
+        }
+
+        .Profile-Heading {
+            font-size: 2rem;
+        }
+
+        .Profile-Data-Box h5 {
+            font-size: 1.5rem;
+        }
+
+    }
+</style>

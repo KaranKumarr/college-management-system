@@ -8,6 +8,8 @@ const mysql = require('mysql');
 const bodyParser = require('body-parser');
 //For Encripting and Decripting Password
 let bcrypt = require('bcrypt');
+//Getting Student Information
+let { getStudentInfo } = require('./studentInfo');
 
 //enabling body parser
 router.use(bodyParser.urlencoded({ extended: true }))
@@ -35,18 +37,17 @@ let status = '';
 router.get('/Student', (req, res) => {
 
 
-    // if (!isLogged) {
-    //     isLogged = true;
-    res.render('StudentLogin.ejs', { status: status });
+    if (!isLogged) {
+        res.render('StudentLogin.ejs', { status: status });
 
-    // console.log(req.body);
-    // } else {
-    //     res.render('StudentHome.ejs');
-    // }
+    } else {
+        res.render('StudentHome.ejs');
+    }
 
 })
 
-//Verify
+
+//Verify ID and Password
 router.post('/student-verify', (req, res) => {
 
     let ID = req.body.studentID;
@@ -58,33 +59,36 @@ router.post('/student-verify', (req, res) => {
 
         if (err) throw err;
 
-        console.log(result);
-
         let json = JSON.stringify(result);
         let temp = JSON.parse(json);
 
         let Student = temp[0];
 
-        let isCorrect = false;
 
-        isCorrect = bcrypt.compareSync(req.body.StudentPassword, Student.Password);
+        isLogged = bcrypt.compareSync(req.body.StudentPassword, Student.Password);
 
-        console.log(Student);
-        if (isCorrect) {
-            res.render('StudentHome.ejs', { Student: Student })
+        if (isLogged) {
+            let i;
+            getStudentInfo(Student.StudentNIC).then((StudentInfo) => {
+                console.log(StudentInfo);
+                res.render('StudentHome.ejs', { Student: Student, StudentInfo: StudentInfo[0] })
+            })
         } else {
-            status = 'Incorrect Password'
+            status = 'Login Again'
             res.render('StudentLogin', { status: status })
         }
     })
 
-    // console.log(temp);
+    //LogOut
+    router.get('/Logout', (req, res) => {
 
-    // res.send(req.send.StudentID + 'hi')
+        isLogged = false;
+
+        res.redirect('Student');
+
+    })
 
 })
-
-
 
 
 module.exports = router;
