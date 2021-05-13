@@ -97,8 +97,6 @@ router.post('/StudentHome', (req, res) => {
         }
     })
 
-
-
 })
 
 router.get('/StudentHome', (req, res) => {
@@ -113,10 +111,19 @@ router.get('/StudentCourses', (req, res) => {
     let Student = myCache.get("Student");
     getCurrentCourses(Student.StudentID).then((CurrentCourses) => {
         console.log(CurrentCourses);
+        myCache.set("CurrentCourses", CurrentCourses, 30000);
         res.render('StudentCourses.ejs', { CurrentCourses: CurrentCourses });
     })
 
 })
+
+//Attendance Route
+router.get("/StudentAttendance", (req, res) => {
+
+    res.send('ABSENT');
+
+})
+
 
 
 //LogOut
