@@ -9,7 +9,7 @@
 
     <%- include("./partials/NavbarCSS.ejs") %>
         <%- include("./partials/defaultCSS.ejs") %>
-
+            <%- include("./partials/CoursesCSS.ejs")%>
 </head>
 
 <body>
@@ -21,14 +21,22 @@
                 <% CurrentCourses.forEach((course)=>{%>
 
                     <li class="Courses-Box">
-                        <h5>
-                            Course Name: <%=course.CourseName%>
-                        </h5>
-                        <h5>
-                            Batch: <%=course.YearTaken%>
-                        </h5>
-                        <a href="">INFO</a>
-                        <a href="">Attendance</a>
+                        <span>
+                            <h5>
+                                Course Name:
+                                <%=course.CourseName%>
+                            </h5>
+                        </span>
+                        <span style="justify-content: center;">
+                            <h5>
+                                Batch:
+                                <%=course.YearTaken%>
+                            </h5>
+                        </span>
+                        <span class="Courses-Links" style="justify-content: flex-end;">
+                            <a href="">INFO</a>
+                            <a href="">Attendance</a>
+                        </span>
                     </li>
 
                     <% })%>

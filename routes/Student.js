@@ -110,10 +110,8 @@ router.get('/StudentHome', (req, res) => {
 //Courses Route
 router.get('/StudentCourses', (req, res) => {
 
-    let value = myCache.get("Student");
-    console.log("NO FUCKING WAY THIS WILL WORK ---- " + value);
-    //Passing Student's Data To HTML(EJS) Page
-    getCurrentCourses(value.StudentID).then((CurrentCourses) => {
+    let Student = myCache.get("Student");
+    getCurrentCourses(Student.StudentID).then((CurrentCourses) => {
         console.log(CurrentCourses);
         res.render('StudentCourses.ejs', { CurrentCourses: CurrentCourses });
     })
