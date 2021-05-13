@@ -34,8 +34,25 @@ const getCurrentCourses = (StudentID) => {
     })
 }
 
+const getAttendance = (CourseID, StudentID) => {
+
+    let sqlQuery = 'SELECT * FROM attendance WHERE Course_ID =' + CourseID + ' && Student_ID =' + StudentID;
+
+    return new Promise((resolve, reject) => {
+        db.query(sqlQuery, (err, result) => {
+            if (err) { reject(err) }
 
 
+            //To Stringify The Row Data Packet Value Returned By the Query
+            let json = JSON.stringify(result);
+            //To Parse That Stringified Data To Proper Javascript Object
+            let Attendance = JSON.parse(json);
 
-module.exports = { getCurrentCourses }
+            resolve(Attendance);
+
+        });
+    })
+}
+
+module.exports = { getCurrentCourses, getAttendance }
 

@@ -10,8 +10,8 @@ const bodyParser = require('body-parser');
 let bcrypt = require('bcrypt');
 //Getting Student Information
 let { getStudentInfo } = require('./studentInfo');
-//Getting Student's Course Information
-let { getCurrentCourses } = require('./coursesInfo');
+//Getting Student's Course Information 
+let { getCurrentCourses, getAttendance } = require('./coursesInfo');
 //To Store Cache
 const NodeCache = require("node-cache");
 const myCache = new NodeCache();
@@ -100,17 +100,19 @@ router.post('/StudentHome', (req, res) => {
 })
 
 router.get('/StudentHome', (req, res) => {
-    console.log(myCache.get("Student"));
+    // console.log(myCache.get("Student"));
     res.render("StudentHome.ejs", { Student: myCache.get("Student"), StudentInfo: myCache.get("StudentInfo") })
 })
+
 
 
 //Courses Route
 router.get('/StudentCourses', (req, res) => {
 
     let Student = myCache.get("Student");
+    // console.log(Student);
     getCurrentCourses(Student.StudentID).then((CurrentCourses) => {
-        console.log(CurrentCourses);
+        // console.log(CurrentCourses);
         myCache.set("CurrentCourses", CurrentCourses, 30000);
         res.render('StudentCourses.ejs', { CurrentCourses: CurrentCourses });
     })
@@ -118,9 +120,25 @@ router.get('/StudentCourses', (req, res) => {
 })
 
 //Attendance Route
-router.get("/StudentAttendance", (req, res) => {
+router.get("/StudentAttendance/:CourseID", (req, res) => {
 
-    res.send('ABSENT');
+    let Course = myCache.get("CurrentCourses").filter((course) => {
+        if (req.params.CourseID == course.CourseID) {
+            return true;
+        }
+    })
+
+
+    let Student = myCache.get("Student");
+
+
+    console.log(Course);
+
+
+
+    getAttendance(Student.StudentID, Course[0].CourseID).then((Attendance) => {
+        res.render('StudentAttendance.ejs', { Attendance: Attendance });
+    })
 
 })
 

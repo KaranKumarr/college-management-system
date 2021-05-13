@@ -34,14 +34,24 @@
                             </h5>
                         </span>
                         <span class="Courses-Links" style="justify-content: flex-end;">
-                            <a href="">INFO</a>
-                            <a href="/StudentAttendance">Attendance</a>
+                            <button href="">INFO</button>
+                            <button onclick="getAttendance(<%=course.CourseID%>)">Attendance</button>
                         </span>
                     </li>
 
                     <% })%>
             </ul>
         </section>
+
+        <script>
+
+            const getAttendance = (ID) => {
+
+                window.location.href = "/StudentAttendance/" + ID;
+
+            }
+
+        </script>
 
 </body>
 
