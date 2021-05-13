@@ -12,28 +12,30 @@ db.connect((err) => {
     else console.log('connected');
 })
 
+const getCurrentCourses = (StudentID) => {
 
-function getStudentInfo(NIC) {
-
-
-    let sqlQuery = 'Select Student_NIC as StudentNIC,DATE_FORMAT(Dob,"%d %M %Y") as Dob, Gender as Gender, Guardian_Name as GaurdianName, Student_Phone as StudentPhone from Student_Info WHERE Student_NIC =' + NIC;
+    let sqlQuery = 'SELECT courses_taken.Course_ID as CourseID,Student_ID as StudentID,Year_Taken as YearTaken,Course_Name as CourseName,instructor_ID as InstructorID FROM courses_taken LEFT JOIN courses_offered ON courses_taken.Course_ID = courses_offered.Course_ID WHERE Student_ID = ' + StudentID + ' && Passed = "FALSE"';
 
     return new Promise((resolve, reject) => {
         db.query(sqlQuery, (err, result) => {
             if (err) { reject(err) }
             else {
+
                 //To Stringify The Row Data Packet Value Returned By the Query
                 let json = JSON.stringify(result);
                 //To Parse That Stringified Data To Proper Javascript Object
-                let StudentInfo = JSON.parse(json);
+                let CurrentCourses = JSON.parse(json);
 
-                resolve(StudentInfo);
+                resolve(CurrentCourses);
+
             }
-        })
-    });
 
+        })
+    })
 }
 
 
 
-module.exports = { getStudentInfo };
+
+module.exports = { getCurrentCourses }
+

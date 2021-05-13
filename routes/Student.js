@@ -10,6 +10,11 @@ const bodyParser = require('body-parser');
 let bcrypt = require('bcrypt');
 //Getting Student Information
 let { getStudentInfo } = require('./studentInfo');
+//Getting Student's Course Information
+let { getCurrentCourses } = require('./coursesInfo');
+//To Store Cache
+const NodeCache = require("node-cache");
+const myCache = new NodeCache();
 
 //enabling body parser
 router.use(bodyParser.urlencoded({ extended: true }))
@@ -46,12 +51,17 @@ router.get('/Student', (req, res) => {
 
 })
 
+let Student;
 
-//Verify ID and Password
-router.post('/student-verify', (req, res) => {
+const getStudent = (StudentAca) => {
+    Student = StudentAca;
+}
+
+//Verify ID and Password AND AFTER THAT this will URL will also be used as HOME PAGE
+router.post('/StudentHome', (req, res) => {
+
 
     let ID = req.body.studentID;
-    let pass = req.body.studentPassword;
 
     let mysql = 'SELECT Student_ID as StudentID,Student_Name as StudentName,Password as Password,Year_Joined as YearJoined, Student_NIC as StudentNIC,Department_Name as DepartmentName FROM student_academics WHERE Student_ID = ' + ID;
 
@@ -62,33 +72,62 @@ router.post('/student-verify', (req, res) => {
         let json = JSON.stringify(result);
         let temp = JSON.parse(json);
 
-        let Student = temp[0];
+        let StudentAca = temp[0];
 
 
-        isLogged = bcrypt.compareSync(req.body.StudentPassword, Student.Password);
+        isLogged = bcrypt.compareSync(req.body.StudentPassword, StudentAca.Password);
 
         if (isLogged) {
-            let i;
-            getStudentInfo(Student.StudentNIC).then((StudentInfo) => {
-                console.log(StudentInfo);
-                res.render('StudentHome.ejs', { Student: Student, StudentInfo: StudentInfo[0] })
+            getStudent(StudentAca);
+            const success = myCache.set("Student", StudentAca, 3000)
+            if (!success) {
+                console.log('ERRIR');
+            }
+            //Passing Student's Data To HTML(EJS) Page
+            getStudentInfo(StudentAca.StudentNIC).then((StudentInfo) => {
+
+                let tempStudentHolder = myCache.get("Student");
+                myCache.set("StudentInfo", StudentInfo[0], 3000)
+                // console.log(tempStudentHolder)
+                res.render('StudentHome.ejs', { Student: tempStudentHolder, StudentInfo: StudentInfo[0] })
             })
         } else {
-            status = 'Login Again'
+            status = 'LogIN Again'
             res.render('StudentLogin', { status: status })
         }
     })
 
-    //LogOut
-    router.get('/Logout', (req, res) => {
 
-        isLogged = false;
 
-        res.redirect('Student');
+})
 
+router.get('/StudentHome', (req, res) => {
+    console.log(myCache.get("Student"));
+    res.render("StudentHome.ejs", { Student: myCache.get("Student"), StudentInfo: myCache.get("StudentInfo") })
+})
+
+
+//Courses Route
+router.get('/StudentCourses', (req, res) => {
+
+    let value = myCache.get("Student");
+    console.log("NO FUCKING WAY THIS WILL WORK ---- " + value);
+    //Passing Student's Data To HTML(EJS) Page
+    getCurrentCourses(value.StudentID).then((CurrentCourses) => {
+        console.log(CurrentCourses);
+        res.render('StudentCourses.ejs', { CurrentCourses: CurrentCourses });
     })
 
 })
 
+
+//LogOut
+router.get('/Logout', (req, res) => {
+
+    isLogged = false;
+
+    res.redirect('Student');
+
+})
 
 module.exports = router;

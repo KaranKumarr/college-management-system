@@ -16,12 +16,14 @@
     <div class="login-box">
         <button class="goBack" onclick="home()">&larr; Go Back</button>
 
-        <form  class="login-form" method="POST" action='/Student-verify'>
+        <form class="login-form" method="POST" action='/StudentHome'>
             <!-- <h1>Hello, There</h1> -->
             <input type="text" name="studentID" id="student" placeholder="USER ID">
-            
+
             <input type="password" name="StudentPassword" placeholder="PASSWORD">
-            <h5><%=status%></h5>
+            <h5>
+                <%=status%>
+            </h5>
             <button type="submit">Login</button>
         </form>
 

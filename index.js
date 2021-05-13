@@ -1,18 +1,23 @@
+//IMPORTING express framework
 const express = require('express');
+//MYSQL connector for NodeJS
 const mysql = require('mysql');
+//Importing bodyParser which is used to get HTML values(like input field result) to NodeJS
 const bodyParser = require('body-parser');
-const ejs = require('ejs');
+//Creating Object of Express 
 const app = express();
-let bcrypt = require('bcrypt');
+//Importing Student Routes
 const studentRoutes = require('./routes/Student');
+//Importing Instructor/Faculty Routes
 const facultyRoute = require('./routes/Instructor');
-
+//Telling NodeJS that we will be using EJS Template Engine
 app.set('view engine', 'ejs');
+//Enabling bodyParser functionalities
 app.use(bodyParser.urlencoded({ extended: true }));
+//Enabling static functionalities
 app.use(express.static('public'));
 
-
-
+//Creating Connection to mysql
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -20,11 +25,13 @@ const db = mysql.createConnection({
     database: 'college-management-system'
 })
 
+//Connecting to Mysql
 db.connect((err) => {
     if (err) throw err
     else console.log('connected');
 })
 
+//Rendering preLogger Page
 app.get('/', (req, res) => {
 
     res.render('preLogger.ejs');
@@ -38,6 +45,8 @@ app.use(studentRoutes);
 //Instructor FILE accessing from here
 app.use(facultyRoute);
 
+
+//Assigning the port where we will be listening
 app.listen('3000', () => {
 
     console.log('started..');
