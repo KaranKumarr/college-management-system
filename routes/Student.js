@@ -122,6 +122,7 @@ router.get('/StudentCourses', (req, res) => {
 //Attendance Route
 router.get("/StudentAttendance/:CourseID", (req, res) => {
 
+
     let Course = myCache.get("CurrentCourses").filter((course) => {
         if (req.params.CourseID == course.CourseID) {
             return true;
@@ -132,17 +133,24 @@ router.get("/StudentAttendance/:CourseID", (req, res) => {
     let Student = myCache.get("Student");
 
 
-    console.log(Course);
+    getAttendance(Course[0].CourseID, Student.StudentID).then((Attendance) => {
+        let presentCount = 0, totalAttendance = 0;
+        Attendance.forEach((Attend) => {
+            totalAttendance++;
+            if (Attend.wasPresent == 'Present') {
+                presentCount++;
+            }
+        })
 
-
-
-    getAttendance(Student.StudentID, Course[0].CourseID).then((Attendance) => {
-        res.render('StudentAttendance.ejs', { Attendance: Attendance });
+        res.render('StudentAttendance.ejs', { Attendance: Attendance, AttendancePercentage: (presentCount / totalAttendance) * 100 });
     })
 
 })
 
-
+router.get('/StudentHome/:Hi/:ho', (req, res) => {
+    console.log(req.params);
+    res.send('somestuff');
+})
 
 //LogOut
 router.get('/Logout', (req, res) => {

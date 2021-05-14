@@ -9,13 +9,52 @@
 
     <%- include("./partials/NavbarCSS.ejs") %>
         <%- include("./partials/defaultCSS.ejs") %>
+
+            <%- include("./partials/AttendanceCSS.ejs") %>
 </head>
 
 <body>
 
     <%- include("./partials/StudentNavbar.ejs") %>
 
-        <h1></h1>
+        <section class="Attendance">
+            <span class="Attendance-Heading-Box">
+                <h1>DATE</h1>
+                <h1>STATUS</h1>
+            </span>
+
+            <ul class="Attendance-Data">
+                <%Attendance.forEach((attend)=>{%>
+
+                    <li class="Attendance-Box">
+                        <h5>
+                            <%=attend.wasPresent%>
+                        </h5>
+                        <h5>
+                            <%=attend.classDate%>
+                        </h5>
+                    </li>
+
+                    <%})%>
+            </ul>
+            <h1 class="Attendance-Heading-Box">Attendance Percentage: <span id="Percentage">
+                    <%=AttendancePercentage%>%
+                </span>
+            </h1>
+        </section>
+
+        <script>
+            let Percentage = parseInt(document.getElementById("Percentage").innerText)
+            if (Percentage >= 80) {
+                document.getElementById("Percentage").classList.add("Green");
+            } else if (Percentage >= 70) {
+                document.getElementById("Percentage").classList.add("Orange");
+            }
+            else {
+                document.getElementById("Percentage").classList.add("Red");
+            }
+        </script>
+
 </body>
 
 </html>
