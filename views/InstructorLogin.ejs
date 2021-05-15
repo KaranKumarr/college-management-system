@@ -15,10 +15,13 @@
     <div class="login-box">
         <button class="goBack" onclick="home()">&larr; Go Back</button>
 
-        <form method="GET" action='/instructorr' class="login-form">
+        <form method="POST" action='/InstructorHome' class="login-form">
             <h1>Hello, There</h1>
-            <input type="text" name="User_ID" placeholder="USER ID">
-            <input type="password" name="User_Password" placeholder="PASSWORD">
+            <input type="text" name="InstructorID" placeholder="USER ID">
+            <input type="password" name="InstructorPassword" placeholder="PASSWORD">
+            <h5>
+                <%=status%>
+            </h5>
             <button type="submit">Login</button>
 
         </form>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instructor | Home</title>
+    <%- include("./partials/NavbarCSS.ejs") %>
+        <%- include("./partials/defaultCSS.ejs") %>
+
+            <%- include("./partials/ProfileCSS.ejs") %>
+</head>
+
+<body>
+    <%- include("./partials/InstructorNavbar.ejs") %>
+
+        <main class="Profile">
+
+            <h1 class="Profile-Heading">Request For A Change Of Profile</h1>
+
+            <div class="Profile-Data">
+
+                <div class="Profile-Data-Box">
+                    <h5 class="Profile-Data-Label">Registration ID</h5>
+                    <h5 class="Profile-Data-Field">
+                        <%=Instructor.InstructorID%>
+                    </h5>
+                </div>
+                <div class="Profile-Data-Box">
+                    <h5 class="Profile-Data-Label">Full Name</h5>
+                    <h5 class="Profile-Data-Field">
+                        <%=Instructor.InstructorName%>
+                    </h5>
+                </div>
+
+                <div class="Profile-Data-Box">
+                    <h5 class="Profile-Data-Label">NIC Number</h5>
+                    <h5 class="Profile-Data-Field">
+                        <%=Instructor.InstructorNIC%>
+                    </h5>
+                </div>
+                <div class="Profile-Data-Box">
+                    <h5 class="Profile-Data-Label">Gender</h5>
+                    <h5 class="Profile-Data-Field">
+                        <%=InstructorInfo.Gender%>
+                    </h5>
+                </div>
+                <div class="Profile-Data-Box">
+                    <h5 class="Profile-Data-Label">Telephone</h5>
+                    <h5 class="Profile-Data-Field">
+                        0<%=InstructorInfo.InstructorPhone%>
+                    </h5>
+                </div>
+                <div class="Profile-Data-Box">
+                    <h5 class="Profile-Data-Label">Email</h5>
+                    <h5 class="Profile-Data-Field">
+                        <%=Instructor.InstructorEmail%>
+                    </h5>
+                </div>
+                <div class="Profile-Data-Box">
+                    <h5 class="Profile-Data-Label">Address</h5>
+                    <h5 class="Profile-Data-Field">
+                        <%=InstructorInfo.InstructorAddress%>
+                    </h5>
+                </div>
+
+
+            </div>
+
+            <button class="Profile-btn">Modify</button>
+
+        </main>
+
+</body>
+
+</html>

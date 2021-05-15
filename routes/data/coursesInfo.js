@@ -84,4 +84,27 @@ const getSchedule = (CourseID) => {
 
 }
 
-module.exports = { getCurrentCourses, getAttendance, getInstructor, getSchedule }
+const getCoursesOFInstructor = (InstructorID) => {
+
+    let sqlQuery = 'SELECT course_ID as courseID,Course_Name as CourseName, Department_Name as DepartmentName,Instructor_ID as InstructorID FROM courses_offered WHERE Instructor_ID = ' + InstructorID;
+
+    return new Promise((resolve, reject) => {
+        db.query(sqlQuery, (err, result) => {
+            if (err) { reject(err) }
+            else {
+
+                //To Stringify The Row Data Packet Value Returned By the Query
+                let json = JSON.stringify(result);
+                //To Parse That Stringified Data To Proper Javascript Object
+                let InstructorCourses = JSON.parse(json);
+
+                resolve(InstructorCourses);
+
+            }
+
+        })
+    })
+}
+
+
+module.exports = { getCurrentCourses, getAttendance, getInstructor, getSchedule, getCoursesOFInstructor }

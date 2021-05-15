@@ -9,9 +9,9 @@ const bodyParser = require('body-parser');
 //For Encripting and Decripting Password
 let bcrypt = require('bcrypt');
 //Getting Student Information
-let { getStudentInfo } = require('./studentInfo');
+let { getStudentInfo } = require('./data/studentInfo');
 //Getting Student's Course Information 
-let { getCurrentCourses, getAttendance, getInstructor, getSchedule } = require('./coursesInfo');
+let { getCurrentCourses, getAttendance, getInstructor, getSchedule } = require('./data/coursesInfo');
 //To Store Cache
 const NodeCache = require("node-cache");
 const myCache = new NodeCache();
@@ -51,12 +51,6 @@ router.get('/Student', (req, res) => {
 
 })
 
-let Student;
-
-const getStudent = (StudentAca) => {
-    Student = StudentAca;
-}
-
 //Verify ID and Password AND AFTER THAT this will URL will also be used as HOME PAGE
 router.post('/StudentHome', (req, res) => {
 
@@ -78,10 +72,9 @@ router.post('/StudentHome', (req, res) => {
         isLogged = bcrypt.compareSync(req.body.StudentPassword, StudentAca.Password);
 
         if (isLogged) {
-            getStudent(StudentAca);
             const success = myCache.set("Student", StudentAca, 3000)
             if (!success) {
-                console.log('ERRIR');
+                console.log('ERROR! Cache Failed');
             }
             //Passing Student's Data To HTML(EJS) Page
             getStudentInfo(StudentAca.StudentNIC).then((StudentInfo) => {

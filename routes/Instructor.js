@@ -1,18 +1,94 @@
 const express = require('express');
 const router = express.Router();
+//For connecting to Database
+const mysql = require('mysql');
+//To get values from HTML/EJS files
+const bodyParser = require('body-parser');
+//enabling body parser
+router.use(bodyParser.urlencoded({ extended: true }))
+router.use(express.static('public'));
+//To Store Cache
+const NodeCache = require("node-cache");
+const FacultyCache = new NodeCache();
+//For Encripting and Decripting Password
+let bcrypt = require('bcrypt');
+//Getting Instructor Information
+let { getInstructorInfo } = require('./data/instructorInfo');
+let { getCoursesOFInstructor } = require('./data/coursesInfo');
 
-let route = '/Faculty';
+//building connection to database
+const db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'college-management-system'
+})
 
+//connecting to database
+db.connect((err) => {
+
+    if (err) throw err
+    else console.log('connected');
+})
+
+let isLogged = false;
+
+let status = '';
+//Login page OR home page if logged in
 router.get('/Instructor', (req, res) => {
 
+    if (!isLogged) {
+        res.render('InstructorLogin.ejs', { status: status });
 
-    res.render('InstructorLogin.ejs', { route: route });
+    } else {
+        res.render('InstructorHome.ejs');
+    }
 
 })
 
-router.get('/Instructorr', (req, res) => {
+router.post('/InstructorHome', (req, res) => {
 
-    res.send('no');
+    let ID = req.body.InstructorID;
+
+    let sqlQuery = 'SELECT Instructor_ID as InstructorID,Instructor_Name as InstructorName,Password as Password,Year_Joined as YearJoined, Instructor_NIC as InstructorNIC,Instructor_Email as InstructorEmail FROM Instructors WHERE Instructor_ID = ' + ID;
+
+    db.query(sqlQuery, (err, result) => {
+        if (err) throw err;
+
+        let json = JSON.stringify(result);
+        let temp = JSON.parse(json);
+
+        let Instructor = temp[0];
+
+        isLogged = bcrypt.compareSync(req.body.InstructorPassword, Instructor.Password);
+
+        if (isLogged) {
+            const successCache = FacultyCache.set("Instructor", Instructor, 3000);
+            if (!successCache) {
+                console.log('ERROR! Cache Failed');
+            }
+
+            getInstructorInfo(Instructor.InstructorNIC).then((InstructorInfo) => {
+
+                let tempInstructorHolder = FacultyCache.get("Instructor");
+                FacultyCache.set("InstructorInfo", InstructorInfo[0], 3000)
+                // console.log(tempStudentHolder)
+                res.render('InstructorHome.ejs', { Instructor: tempInstructorHolder, InstructorInfo: InstructorInfo[0] })
+
+            })
+
+        }
+    })
+
+})
+
+router.get('/InstructorCourses', (req, res) => {
+
+    getCoursesOFInstructor(FacultyCache.get("Instructor").InstructorID).then((courses) => {
+
+        res.render("InstructorCourses.ejs", { Courses: courses })
+
+    })
 
 })
 
@@ -20,5 +96,13 @@ router.get('/Faculty', (req, res) => {
     res.redirect('/Instructor');
 })
 
+//LogOut
+router.get('/Signout', (req, res) => {
+
+    isLogged = false;
+
+    res.redirect('Instructor');
+
+})
 
 module.exports = router;
