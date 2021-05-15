@@ -11,7 +11,7 @@ let bcrypt = require('bcrypt');
 //Getting Student Information
 let { getStudentInfo } = require('./studentInfo');
 //Getting Student's Course Information 
-let { getCurrentCourses, getAttendance } = require('./coursesInfo');
+let { getCurrentCourses, getAttendance, getInstructor, getSchedule } = require('./coursesInfo');
 //To Store Cache
 const NodeCache = require("node-cache");
 const myCache = new NodeCache();
@@ -122,16 +122,13 @@ router.get('/StudentCourses', (req, res) => {
 //Attendance Route
 router.get("/StudentAttendance/:CourseID", (req, res) => {
 
-
     let Course = myCache.get("CurrentCourses").filter((course) => {
         if (req.params.CourseID == course.CourseID) {
             return true;
         }
     })
 
-
     let Student = myCache.get("Student");
-
 
     getAttendance(Course[0].CourseID, Student.StudentID).then((Attendance) => {
         let presentCount = 0, totalAttendance = 0;
@@ -146,6 +143,31 @@ router.get("/StudentAttendance/:CourseID", (req, res) => {
     })
 
 })
+
+
+//Routes for Course Information
+router.get('/StudentCourses/:CourseID/:InstructorID', (req, res) => {
+
+    getInstructor(req.params.InstructorID).then((Instructor) => {
+
+
+        getSchedule(req.params.CourseID).then((Schedule) => {
+
+            let classSchedule = Schedule[0];
+            let instructor = Instructor[0];
+            let courseName = myCache.get("CurrentCourses").filter((course) => {
+                if (req.params.CourseID == course.CourseID) {
+                    return true;
+                }
+            })
+            courseName = courseName[0].CourseName;
+
+            res.render("CourseInfo.ejs", { CourseName: courseName, Instructor: instructor, Schedule: classSchedule })
+        })
+
+    })
+})
+
 
 router.get('/StudentHome/:Hi/:ho', (req, res) => {
     console.log(req.params);

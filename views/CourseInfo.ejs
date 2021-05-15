@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%=CourseName%>
+    </title>
+
+    <%- include("./partials/NavbarCSS.ejs") %>
+        <%- include("./partials/defaultCSS.ejs") %>
+
+            <%- include("./partials/CoursesCSS.ejs") %>
+
+</head>
+
+
+
+<body>
+
+    <%- include("./partials/StudentNavbar.ejs") %>
+
+        <section class="Current-Courses">
+            <h1 class="Courses-Heading">
+                <%=CourseName%>
+            </h1>
+            <div class="Courses-Data">
+                <h5 class="Courses-Box" style="justify-content: center;">Instructer: <%=Instructor.instructor_Name%>
+                </h5>
+                <h5 class="Courses-Box" style="justify-content: center;">Class Days: <%=Schedule.ClassDay%>
+                </h5>
+                <h5 class="Courses-Box" style="justify-content: center;">Class Timing: <%=Schedule.ClassTime%>
+                </h5>
+                <h5 class="Courses-Box" style="justify-content: center;">Duration: 02 Hours</h5>
+                <h5 class="Courses-Box" style="justify-content: center;">Classroom: <%=Schedule.Classroom%>
+                </h5>
+            </div>
+        </section>
+
+
+</body>
+
+</html>

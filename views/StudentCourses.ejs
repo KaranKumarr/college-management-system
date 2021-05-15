@@ -17,7 +17,7 @@
 
         <section class="Current-Courses">
             <h1 class="Courses-Heading">Current Courses</h1>
-            <ul class="Courses-Data">
+            <ul>
                 <% CurrentCourses.forEach((course)=>{%>
 
                     <li class="Courses-Box">
@@ -31,11 +31,14 @@
                             <h5 class="Courses-Box-Batch">
                                 Batch:
                                 <%=course.YearTaken%>
+
                             </h5>
                         </span>
                         <span class="Courses-Links" style="justify-content: flex-end;">
-                            <button href="">INFO</button>
-                            <button onclick="getAttendance(<%=course.CourseID%>)">Attendance</button>
+                            <button
+                                onclick="getInformation(<%=course.CourseID%>,<%=course.InstructorID%>)">INFO</button>
+                            <button onclick='getAttendance(<%=course.CourseID%>)'>Attendance</button>
+
                         </span>
                     </li>
 
@@ -46,9 +49,13 @@
         <script>
 
             const getAttendance = (ID) => {
-
+                console.log(ID);
                 window.location.href = "/StudentAttendance/" + ID;
 
+            }
+
+            const getInformation = (CourseID, InstructorID) => {
+                window.location.href = "/StudentCourses/" + CourseID + "/" + InstructorID;
             }
 
         </script>

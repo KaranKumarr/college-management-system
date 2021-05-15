@@ -51,5 +51,37 @@ const getAttendance = (CourseID, StudentID) => {
     })
 }
 
-module.exports = { getCurrentCourses, getAttendance }
+const getInstructor = (InstructorID) => {
 
+    let sqlQuery = "SELECT * FROM instructors WHERE Instructor_ID = " + InstructorID;
+
+    return new Promise((resolve, reject) => {
+        db.query(sqlQuery, (err, result) => {
+            if (err) { reject(err) }
+            //To Stringify The Row Data Packet Value Returned By the Query
+            let json = JSON.stringify(result);
+            //To Parse That Stringified Data To Proper Javascript Object
+            let Instructor = JSON.parse(json);
+            resolve(Instructor);
+        })
+    })
+}
+
+const getSchedule = (CourseID) => {
+
+    let sqlQuery = "SELECT Date_Format(Class_Time,'%r') as ClassTime,Class_Day as ClassDay, Class_Room as Classroom, Course_ID as CourseID FROM class_schedule WHERE Course_ID = " + CourseID;
+
+    return new Promise((resolve, reject) => {
+        db.query(sqlQuery, (err, result) => {
+            if (err) { reject(err) }
+            //To Stringify The Row Data Packet Value Returned By the Query
+            let json = JSON.stringify(result);
+            //To Parse That Stringified Data To Proper Javascript Object
+            let Schedule = JSON.parse(json);
+            resolve(Schedule);
+        })
+    })
+
+}
+
+module.exports = { getCurrentCourses, getAttendance, getInstructor, getSchedule }
