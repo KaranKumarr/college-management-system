@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <%- include("./partials/NavbarCSS.ejs") %>
+        <%- include("./partials/defaultCSS.ejs") %>
+            <%- include("./partials/ClassesCSS.ejs")%>
+</head>
+
+<body>
+
+    <%- include("./partials/InstructorNavbar.ejs") %>
+
+        <section class="Classes">
+
+            <h1 class="Classes-Heading">Classes Of <%=CourseName%>
+            </h1>
+
+            <% if(dates.length> 0){ %>
+
+                <%dates.forEach((date,i)=>{%>
+                    <div class="Classes-Box">
+                        <h5>Class Date: <%=date%>
+                        </h5>
+                        <button onclick="getAttendance(<%=i%>)">Attendance</button>
+                    </div>
+                    <%});%>
+                        <%} else{ %>
+
+                            <div class="Classes-Box">
+                                <h5>Sorry, There has been no classes yet</h5>
+                            </div>
+                            <%}%>
+        </section>
+
+        <script>
+
+            const getAttendance = (day) => {
+
+                window.location.href = window.location.href + "/" + day;
+
+            }
+
+        </script>
+
+</body>
+
+</html>

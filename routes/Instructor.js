@@ -13,8 +13,11 @@ const FacultyCache = new NodeCache();
 //For Encripting and Decripting Password
 let bcrypt = require('bcrypt');
 //Getting Instructor Information
-let { getInstructorInfo } = require('./data/instructorInfo');
+let { getInstructorInfo, getAttendance } = require('./data/instructorInfo');
 let { getCoursesOFInstructor } = require('./data/coursesInfo');
+
+//get Student Name For Attendance Sheet
+let { getStudentName } = require('./data/studentInfo');
 
 //building connection to database
 const db = mysql.createConnection({
@@ -82,16 +85,74 @@ router.post('/InstructorHome', (req, res) => {
 
 })
 
+//Get Route For Instructor Home
+router.get('/InstructorHome', (req, res) => {
+    res.render("InstructorHome.ejs", { Instructor: FacultyCache.get("Instructor"), InstructorInfo: FacultyCache.get("InstructorInfo") })
+})
+
+//Instructor Courses
 router.get('/InstructorCourses', (req, res) => {
-
     getCoursesOFInstructor(FacultyCache.get("Instructor").InstructorID).then((courses) => {
-
+        FacultyCache.set("InstructorCourses", courses, 3000)
         res.render("InstructorCourses.ejs", { Courses: courses })
+    })
+})
+
+//Instructor Classes
+router.get('/InstructorClasses/:courseID', (req, res) => {
+
+    let courseID = req.params.courseID;
+
+    getAttendance(courseID).then((Attendance) => {
+
+        FacultyCache.set("Attendance", Attendance, 3000)
+
+        const dates = new Array();
+
+        for (let i = 0; i < Attendance.length; i++) {
+
+            if (dates.includes(Attendance[i].classDate)) {
+
+            } else {
+                dates.push(Attendance[i].classDate)
+            }
+
+        }
+        FacultyCache.set("dates", dates, 3000)
+        // console.log(FacultyCache.get("InstructorCourses"));
+        let CourseName = FacultyCache.get("InstructorCourses").filter((course) => {
+            if (course.courseID == courseID) {
+                return true;
+            }
+        })
+        // console.log(CourseName);
+        res.render("InstructorClasses", { dates: dates, CourseName: CourseName[0].CourseName })
 
     })
 
 })
 
+//Instructor Attendance
+router.get("/InstructorClasses/:courseID/:index", (req, res) => {
+
+    let index = req.params.index;
+
+    const oldAttendance = FacultyCache.get("Attendance");
+    const dates = FacultyCache.get("dates");
+    let filteredAttendance = oldAttendance.filter((attendance) => {
+
+        if (attendance.classDate == dates[index]) {
+            return true;
+        }
+
+    })
+
+    res.render("InstructorAttendance.ejs", { Attendance: filteredAttendance, date: dates[index] })
+
+
+})
+
+//Wrong URL ERROR Handling
 router.get('/Faculty', (req, res) => {
     res.redirect('/Instructor');
 })

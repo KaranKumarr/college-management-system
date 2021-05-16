@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+
+    <%- include("./partials/NavbarCSS.ejs") %>
+        <%- include("./partials/defaultCSS.ejs") %>
+            <%- include("./partials/AttendanceCSS.ejs")%>
+
+</head>
+
+<body>
+
+
+    <%- include("./partials/InstructorNavbar.ejs") %>
+
+        <section class="Attendance">
+
+            <h1 class="Attendance-Heading-Box">Attendance Dated: <%=date%>
+            </h1>
+            <ul>
+
+                <%Attendance.forEach((Attendance,i)=>{%>
+                    <li class="Attendance-Box">
+                        <h5>
+                            <%=Attendance.StudentID%>
+                        </h5>
+                        <h5>
+                            <%=Attendance.wasPresent%>
+                        </h5>
+                    </li>
+                    <%})%>
+
+            </ul>
+
+        </section>
+
+</body>
+
+<script>
+
+
+
+</script>
+
+</html>

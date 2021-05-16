@@ -162,11 +162,6 @@ router.get('/StudentCourses/:CourseID/:InstructorID', (req, res) => {
 })
 
 
-router.get('/StudentHome/:Hi/:ho', (req, res) => {
-    console.log(req.params);
-    res.send('somestuff');
-})
-
 //LogOut
 router.get('/Logout', (req, res) => {
 

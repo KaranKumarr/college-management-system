@@ -34,6 +34,25 @@ function getStudentInfo(NIC) {
 
 }
 
+const getStudentName = () => {
+
+    let sqlQuery = 'SELECT Student_Name as StudentName,Student_ID as StudentID From Student_Academics';
+
+    return new Promise((resolve, reject) => {
+        db.query(sqlQuery, (err, result) => {
+            if (err) { reject(err) }
+            else {
+                //To Stringify The Row Data Packet Value Returned By the Query
+                let json = JSON.stringify(result);
+                //To Parse That Stringified Data To Proper Javascript Object
+                let StudentName = JSON.parse(json);
+
+                resolve(StudentName);
+            }
+        })
+    })
+
+}
 
 
-module.exports = { getStudentInfo };
+module.exports = { getStudentInfo, getStudentName };
