@@ -14,7 +14,7 @@ const FacultyCache = new NodeCache();
 let bcrypt = require('bcrypt');
 //Getting Instructor Information
 let { getInstructorInfo, getAttendance } = require('./data/instructorInfo');
-let { getCoursesOFInstructor } = require('./data/coursesInfo');
+let { getCoursesOFInstructor, getSchedule } = require('./data/coursesInfo');
 
 //get Student Name For Attendance Sheet
 let { getStudentList } = require('./data/studentInfo');
@@ -127,6 +127,34 @@ router.get('/InstructorClasses/:courseID', (req, res) => {
         })
         // console.log(CourseName);
         res.render("InstructorClasses", { dates: dates, CourseName: CourseName[0].CourseName })
+
+    })
+
+})
+
+//COURSE INFO
+router.get("/InstructorCourses/:courseID", (req, res) => {
+
+    let CourseID = req.params.courseID;
+
+    getSchedule(CourseID).then((schedule) => {
+
+        let Course = FacultyCache.get("InstructorCourses");
+        let CourseName;
+
+        for (let i = 0; i < Course.length; i++) {
+
+            if (Course[i].courseID == CourseID) {
+                CourseName = Course[i].CourseName;
+            }
+
+        }
+
+        let InstructorName = FacultyCache.get("Instructor").InstructorName;
+
+        console.log(CourseName);
+
+        res.render("InstructorCoursesInfo.ejs", { InstructorName: InstructorName, CourseName: CourseName, Schedule: schedule[0] })
 
     })
 

@@ -29,7 +29,7 @@
                         </span>
 
                         <span class="Courses-Links" style="justify-content: flex-end;">
-                            <button>COURSE INFO</button>
+                            <button onclick='goToCourseInfo(<%=course.courseID%>)'>COURSE INFO</button>
                             <button onclick='goToClasses(<%=course.courseID%>)' type="button">CLASSES</button>
                         </span>
                     </li>
@@ -44,6 +44,10 @@
 
                 window.location.href = "/InstructorClasses/" + courseID;
 
+            }
+
+            const goToCourseInfo = (courseID) => {
+                window.location.href = "/InstructorCourses/" + courseID;
             }
 
         </script>
