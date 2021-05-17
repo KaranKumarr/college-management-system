@@ -17,7 +17,7 @@ let { getInstructorInfo, getAttendance } = require('./data/instructorInfo');
 let { getCoursesOFInstructor } = require('./data/coursesInfo');
 
 //get Student Name For Attendance Sheet
-let { getStudentName } = require('./data/studentInfo');
+let { getStudentList } = require('./data/studentInfo');
 
 //building connection to database
 const db = mysql.createConnection({
@@ -146,9 +146,10 @@ router.get("/InstructorClasses/:courseID/:index", (req, res) => {
         }
 
     })
-
-    res.render("InstructorAttendance.ejs", { Attendance: filteredAttendance, date: dates[index] })
-
+    getStudentList().then((Student) => {
+        console.log(Student[0]);
+        res.render("InstructorAttendance.ejs", { Attendance: filteredAttendance, date: dates[index], StudentList: Student })
+    })
 
 })
 

@@ -34,7 +34,7 @@ function getStudentInfo(NIC) {
 
 }
 
-const getStudentName = () => {
+const getStudentList = () => {
 
     let sqlQuery = 'SELECT Student_Name as StudentName,Student_ID as StudentID From Student_Academics';
 
@@ -55,4 +55,4 @@ const getStudentName = () => {
 }
 
 
-module.exports = { getStudentInfo, getStudentName };
+module.exports = { getStudentInfo, getStudentList };

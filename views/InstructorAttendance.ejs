@@ -24,15 +24,20 @@
             <h1 class="Attendance-Heading-Box">Attendance Dated: <%=date%>
             </h1>
             <ul>
+                <h1 class="Attendance-Heading-Box"></h1>
+                <%Attendance.forEach((Attend,i)=>{%>
+                    <li class="Attendance-Box" style="justify-content: space-between;">
 
-                <%Attendance.forEach((Attendance,i)=>{%>
-                    <li class="Attendance-Box">
-                        <h5>
-                            <%=Attendance.StudentID%>
-                        </h5>
-                        <h5>
-                            <%=Attendance.wasPresent%>
-                        </h5>
+                        <% for(var j=0; j < Attendance.length; j++){ if(Attend.StudentID==StudentList[j].StudentID){%>
+                            <h5>
+
+                                <%=StudentList[j].StudentName%> -
+                                    <%=Attend.StudentID%>
+                            </h5>
+                            <%}}%>
+                                <h5>
+                                    <%=Attend.wasPresent%>
+                                </h5>
                     </li>
                     <%})%>
 
