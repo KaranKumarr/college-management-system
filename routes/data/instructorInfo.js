@@ -37,7 +37,7 @@ function getInstructorInfo(NIC) {
 
 const getAttendance = (CourseID) => {
 
-    let sqlQuery = 'SELECT  wasPresent as wasPresent,DATE_FORMAT(class_date,"%d %M %Y") as classDate,Course_ID as CourseID, Student_ID as StudentID FROM attendance WHERE Course_ID =' + CourseID;
+    let sqlQuery = 'SELECT  wasPresent as wasPresent,DATE_FORMAT(class_date,"%d %M %Y") as classDate,Course_ID as CourseID, Student_ID as StudentID FROM attendance WHERE Course_ID =' + CourseID + ' ORDER BY class_date ASC';
 
     return new Promise((resolve, reject) => {
         db.query(sqlQuery, (err, result) => {

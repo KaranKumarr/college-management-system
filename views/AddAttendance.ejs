@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include("./partials/NavbarCSS.ejs") %>
+        <%- include("./partials/defaultCSS.ejs") %>
+            <%- include("./partials/AttendanceCSS.ejs")%>
+</head>
+
+<body>
+
+    <%- include("./partials/InstructorNavbar.ejs") %>
+
+        <section class="Attendance">
+
+            <h1 class="Attendance-Heading-Box"> Add New Attendance</h1>
+
+            <form method="POST" action="/Add/Attendance">
+
+                <%Courses.forEach((Course)=>{%>
+                    <span class="Attendance-Box">
+                        <input type="text" value=<%=Course.StudentID%> name="StudentIDs[]" readonly/>
+                        <select name="Statuses[]" id="">
+                            <option value="Present">Present</option>
+                            <option value="Absent">Absent</option>
+                        </select>
+                    </span>
+                    <%})%>
+                        <span class="Attendance-Box " style="justify-content: space-evenly;">
+                            <input type="date" id="date" name="classdate">
+
+                            <button type="submit" id="Submit">SUBMIT</button>
+                        </span>
+            </form>
+
+        </section>
+
+</body>
+
+</html>

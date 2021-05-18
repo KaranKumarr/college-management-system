@@ -14,7 +14,7 @@ const FacultyCache = new NodeCache();
 let bcrypt = require('bcrypt');
 //Getting Instructor Information
 let { getInstructorInfo, getAttendance } = require('./data/instructorInfo');
-let { getCoursesOFInstructor, getSchedule } = require('./data/coursesInfo');
+let { getCoursesOFInstructor, getSchedule, getCoursesTaken } = require('./data/coursesInfo');
 
 //get Student Name For Attendance Sheet
 let { getStudentList } = require('./data/studentInfo');
@@ -126,7 +126,7 @@ router.get('/InstructorClasses/:courseID', (req, res) => {
             }
         })
         // console.log(CourseName);
-        res.render("InstructorClasses", { dates: dates, CourseName: CourseName[0].CourseName })
+        res.render("InstructorClasses", { dates: dates, CourseName: CourseName[0].CourseName, CourseID: courseID })
 
     })
 
@@ -160,6 +160,7 @@ router.get("/InstructorCourses/:courseID", (req, res) => {
 
 })
 
+
 //Instructor Attendance
 router.get("/InstructorClasses/:courseID/:index", (req, res) => {
 
@@ -180,6 +181,62 @@ router.get("/InstructorClasses/:courseID/:index", (req, res) => {
     })
 
 })
+
+
+//Adding New Attendance
+router.get('/Add/Attendance/:courseID', (req, res) => {
+
+    let courseID = req.params.courseID;
+
+    getCoursesTaken(courseID).then((Courses) => {
+
+        FacultyCache.set("CourseID", courseID, 3000)
+        res.render("AddAttendance.ejs", { Courses: Courses })
+
+    })
+
+})
+
+router.post('/Add/Attendance', (req, res) => {
+
+    let CourseID = FacultyCache.get("CourseID");
+    let StudentIDs = req.body.StudentIDs;
+    let Statuses = req.body.Statuses;
+    let date = req.body.classdate;
+
+    // console.log(CourseID);
+    // console.log(StudentIDs);
+    // console.log(Statuses);
+    // console.log(date);
+
+    let Values = new Array();
+
+
+    const getValues = (Statuses, StudentIDs) => {
+        for (let i = 0; i < Statuses.length; i++) {
+
+            Values.push([Statuses[i], date, CourseID, StudentIDs[i]])
+
+        }
+    }
+
+    getValues(Statuses, StudentIDs);
+
+    let sqlQuery = 'INSERT INTO Attendance(wasPresent,class_date,Course_ID,Student_ID) VALUES ?';
+
+    db.query(sqlQuery, [Values], (err, result) => {
+
+        if (err) { throw err }
+        else {
+            console.log(result);
+            res.redirect('/InstructorClasses/' + CourseID);
+        }
+
+    })
+
+})
+
+
 
 //Wrong URL ERROR Handling
 router.get('/Faculty', (req, res) => {

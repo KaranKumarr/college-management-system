@@ -37,7 +37,7 @@ const getCurrentCourses = (StudentID) => {
 
 const getAttendance = (CourseID, StudentID) => {
 
-    let sqlQuery = 'SELECT  wasPresent as wasPresent,DATE_FORMAT(class_date,"%d %M %Y") as classDate,Course_ID as CourseID, Student_ID as StudentID FROM attendance WHERE Course_ID =' + CourseID + '&& Student_ID =' + StudentID;
+    let sqlQuery = 'SELECT  wasPresent as wasPresent,DATE_FORMAT(class_date,"%d %M %Y") as classDate,Course_ID as CourseID, Student_ID as StudentID FROM attendance WHERE Course_ID =' + CourseID + '&& Student_ID =' + StudentID + ' ORDER BY class_date';
 
     return new Promise((resolve, reject) => {
         db.query(sqlQuery, (err, result) => {
@@ -106,5 +106,25 @@ const getCoursesOFInstructor = (InstructorID) => {
     })
 }
 
+const getCoursesTaken = (CourseID) => {
 
-module.exports = { getCurrentCourses, getAttendance, getInstructor, getSchedule, getCoursesOFInstructor }
+    let sqlQuery = 'SELECT Course_ID as CourseID, Student_ID as StudentID, Year_Taken as YearTaken, Passed as Passed, Percentage as Percentage FROM courses_taken WHERE Passed = "False" && Course_ID = ' + CourseID;
+
+    return new Promise((resolve, reject) => {
+        db.query(sqlQuery, (err, result) => {
+            if (err) { throw reject(err) }
+            else {
+
+                //To Stringify The Row Data Packet Value Returned By the Query
+                let json = JSON.stringify(result);
+                //To Parse That Stringified Data To Proper Javascript Object
+                let CoursesTaken = JSON.parse(json);
+
+                resolve(CoursesTaken);
+
+            }
+        })
+    })
+}
+
+module.exports = { getCurrentCourses, getAttendance, getInstructor, getSchedule, getCoursesOFInstructor, getCoursesTaken }

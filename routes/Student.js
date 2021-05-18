@@ -1,4 +1,4 @@
-//Importin Express
+//Importing Express
 const express = require('express');
 //Routers to connect this file's routes with Index.js
 const router = express.Router();
