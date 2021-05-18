@@ -12,11 +12,13 @@ const studentRoutes = require('./routes/Student');
 const facultyRoute = require('./routes/Instructor');
 //Telling NodeJS that we will be using EJS Template Engine
 app.set('view engine', 'ejs');
+
+app.use('/assets', express.static('assets'));
 //Enabling bodyParser functionalities
 app.use(bodyParser.urlencoded({ extended: true }));
-//Enabling static functionalities
-app.use(express.static('public'));
 
+//Enabling static functionalities
+// app.use(express.static(__dirname + 'public'));
 //Creating Connection to mysql
 const db = mysql.createConnection({
     host: 'localhost',
@@ -28,7 +30,7 @@ const db = mysql.createConnection({
 //Connecting to Mysql
 db.connect((err) => {
     if (err) throw err
-    else console.log('connected');
+    // else console.log('connected');
 })
 
 //Rendering preLogger Page

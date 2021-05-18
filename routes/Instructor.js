@@ -19,6 +19,7 @@ let { getCoursesOFInstructor, getSchedule, getCoursesTaken } = require('./data/c
 //get Student Name For Attendance Sheet
 let { getStudentList } = require('./data/studentInfo');
 
+
 //building connection to database
 const db = mysql.createConnection({
     host: 'localhost',
@@ -44,7 +45,10 @@ router.get('/Instructor', (req, res) => {
         res.render('InstructorLogin.ejs', { status: status });
 
     } else {
-        res.render('InstructorHome.ejs');
+        res.render('InstructorHome.ejs', {
+            title: 'My Site',
+            myCss: myCss
+        });
     }
 
 })
@@ -76,7 +80,9 @@ router.post('/InstructorHome', (req, res) => {
                 let tempInstructorHolder = FacultyCache.get("Instructor");
                 FacultyCache.set("InstructorInfo", InstructorInfo[0], 3000)
                 // console.log(tempStudentHolder)
-                res.render('InstructorHome.ejs', { Instructor: tempInstructorHolder, InstructorInfo: InstructorInfo[0] })
+                res.render('InstructorHome.ejs', {
+                    Instructor: tempInstructorHolder, InstructorInfo: InstructorInfo[0]
+                })
 
             })
 
@@ -87,7 +93,9 @@ router.post('/InstructorHome', (req, res) => {
 
 //Get Route For Instructor Home
 router.get('/InstructorHome', (req, res) => {
-    res.render("InstructorHome.ejs", { Instructor: FacultyCache.get("Instructor"), InstructorInfo: FacultyCache.get("InstructorInfo") })
+    res.render("InstructorHome.ejs", {
+        Instructor: FacultyCache.get("Instructor"), InstructorInfo: FacultyCache.get("InstructorInfo")
+    })
 })
 
 //Instructor Courses
