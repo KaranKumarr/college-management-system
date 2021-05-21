@@ -162,6 +162,34 @@ router.get('/StudentCourses/:CourseID/:InstructorID', (req, res) => {
 })
 
 
+//Modify Profile Of Student
+router.post('/Modify/Student', (req, res) => {
+
+
+    let newTelephone = req.body.Telephone;
+    let newStudentAddress = req.body.StudentAddress;
+    let Student = myCache.get("Student");
+    console.log(newTelephone);
+    console.log(newStudentAddress);
+    let sizeOfTelephone = newTelephone.toString().length;
+    console.log(sizeOfTelephone);
+    if (sizeOfTelephone === 11) {
+        let sqlQuery = 'UPDATE Student_info SET Student_Address="' + newStudentAddress + '",Student_Phone = ' + newTelephone + ' WHERE Student_NIC = ' + Student.StudentNIC;
+
+        db.query(sqlQuery, (err, result) => {
+
+            if (err) { throw err }
+            console.log(result);
+            res.redirect('/StudentHome');
+        })
+    }
+    else {
+
+        res.redirect('/StudentHome');
+    }
+
+})
+
 //LogOut
 router.get('/Logout', (req, res) => {
 

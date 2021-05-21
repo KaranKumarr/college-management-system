@@ -16,7 +16,7 @@ db.connect((err) => {
 function getStudentInfo(NIC) {
 
 
-    let sqlQuery = 'Select Student_NIC as StudentNIC,DATE_FORMAT(Dob,"%d %M %Y") as Dob, Gender as Gender, Guardian_Name as GaurdianName, Student_Phone as StudentPhone from Student_Info WHERE Student_NIC =' + NIC;
+    let sqlQuery = 'Select Student_NIC as StudentNIC,DATE_FORMAT(Dob,"%d %M %Y") as Dob, Gender as Gender, Guardian_Name as GaurdianName, Student_Phone as StudentPhone, Student_Address as StudentAddress from Student_Info WHERE Student_NIC =' + NIC;
 
     return new Promise((resolve, reject) => {
         db.query(sqlQuery, (err, result) => {

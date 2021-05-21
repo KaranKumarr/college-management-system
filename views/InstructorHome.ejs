@@ -15,7 +15,7 @@
 <body>
     <%- include("./partials/InstructorNavbar.ejs") %>
 
-        <main class="Profile">
+        <form class="Profile" action="/Modify/Instructor" method="POST">
 
             <h1 class="Profile-Heading">Request For A Change Of Profile</h1>
 
@@ -23,54 +23,61 @@
 
                 <div class="Profile-Data-Box">
                     <h5 class="Profile-Data-Label">Registration ID</h5>
-                    <h5 class="Profile-Data-Field">
-                        <%=Instructor.InstructorID%>
-                    </h5>
+                    <input class="Profile-Data-Field" value=<%=Instructor.InstructorID%> readonly/>
+
                 </div>
                 <div class="Profile-Data-Box">
                     <h5 class="Profile-Data-Label">Full Name</h5>
-                    <h5 class="Profile-Data-Field">
-                        <%=Instructor.InstructorName%>
-                    </h5>
+                    <textarea class="Profile-Data-Field" rows="1" readonly><%=Instructor.InstructorName%></textarea>
                 </div>
 
                 <div class="Profile-Data-Box">
                     <h5 class="Profile-Data-Label">NIC Number</h5>
-                    <h5 class="Profile-Data-Field">
-                        <%=Instructor.InstructorNIC%>
-                    </h5>
+                    <input class="Profile-Data-Field" value=<%=InstructorInfo.InstructorNIC%> readonly/>
                 </div>
                 <div class="Profile-Data-Box">
                     <h5 class="Profile-Data-Label">Gender</h5>
-                    <h5 class="Profile-Data-Field">
-                        <%=InstructorInfo.Gender%>
-                    </h5>
-                </div>
-                <div class="Profile-Data-Box">
-                    <h5 class="Profile-Data-Label">Telephone</h5>
-                    <h5 class="Profile-Data-Field">
-                        0<%=InstructorInfo.InstructorPhone%>
-                    </h5>
+                    <input class="Profile-Data-Field" value=<%=InstructorInfo.Gender%> readonly/>
                 </div>
                 <div class="Profile-Data-Box">
                     <h5 class="Profile-Data-Label">Email</h5>
-                    <h5 class="Profile-Data-Field">
-                        <%=Instructor.InstructorEmail%>
-                    </h5>
+                    <input class="Profile-Data-Field" name="InstructorEmail" type="email"
+                        value=<%=Instructor.InstructorEmail%> readonly/>
                 </div>
+
+                <div class="Profile-Data-Box">
+                    <h5 class="Profile-Data-Label">Telephone</h5>
+                    <input oninput="checkLength()" class="Profile-Data-Field" id="Telephone" type="text" maxlength="11"
+                        minlength="11" name="Telephone" value=0<%=InstructorInfo.InstructorPhone%> />
+                </div>
+                <h5 id="length-exception" style="color:red; display:flex; justify-content: center;"></h5>
                 <div class="Profile-Data-Box">
                     <h5 class="Profile-Data-Label">Address</h5>
-                    <h5 class="Profile-Data-Field">
-                        <%=InstructorInfo.InstructorAddress%>
-                    </h5>
+                    <% var address=InstructorInfo.InstructorAddress%> <textarea name="InstructorAddress"
+                            class="Profile-Data-Field"><%=InstructorInfo.InstructorAddress%></textarea>
                 </div>
 
 
             </div>
 
-            <button class="Profile-btn">Modify</button>
+            <button class="Profile-btn" type="submit">Modify</button>
 
-        </main>
+        </form>
+
+        <script>
+            let error = 'Telephone Length must be 11';
+
+            const checkLength = () => {
+
+                let temp = document.getElementById('length-exception');
+                if (document.getElementById('Telephone').value.length != 11) {
+                    temp.innerHTML = "Phone number won't be changed if length isn't 11";
+                } else {
+                    temp.innerHTML = "";
+                }
+            }
+
+        </script>
 
 </body>
 

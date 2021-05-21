@@ -45,10 +45,7 @@ router.get('/Instructor', (req, res) => {
         res.render('InstructorLogin.ejs', { status: status });
 
     } else {
-        res.render('InstructorHome.ejs', {
-            title: 'My Site',
-            myCss: myCss
-        });
+        res.render('InstructorHome.ejs');
     }
 
 })
@@ -191,7 +188,7 @@ router.get("/InstructorClasses/:courseID/:index", (req, res) => {
 })
 
 
-//Adding New Attendance
+//Getting New Attendance
 router.get('/Add/Attendance/:courseID', (req, res) => {
 
     let courseID = req.params.courseID;
@@ -205,6 +202,8 @@ router.get('/Add/Attendance/:courseID', (req, res) => {
 
 })
 
+
+//Post method --> Adding Attendance
 router.post('/Add/Attendance', (req, res) => {
 
     let CourseID = FacultyCache.get("CourseID");
@@ -244,7 +243,30 @@ router.post('/Add/Attendance', (req, res) => {
 
 })
 
+//Modify Profile
+router.post('/Modify/Instructor', (req, res) => {
 
+    let newTelephone = req.body.Telephone;
+    let newInstructorAddress = req.body.InstructorAddress;
+    let Instructor = FacultyCache.get("Instructor");
+
+    let sizeOfTelephone = newTelephone.toString().length;
+
+    if (sizeOfTelephone === 11) {
+        let sqlQuery = 'UPDATE instructor_info SET Instructor_Address="' + newInstructorAddress + '",Telephone = ' + newTelephone + ' WHERE Instructor_NIC = ' + Instructor.InstructorNIC;
+
+        db.query(sqlQuery, (err, result) => {
+
+            if (err) { throw err }
+
+            res.redirect('/InstructorHome');
+        })
+    }
+    else {
+
+        res.redirect('/InstructorHome');
+    }
+})
 
 //Wrong URL ERROR Handling
 router.get('/Faculty', (req, res) => {
