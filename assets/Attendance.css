@@ -35,7 +35,7 @@ li {
 
 .Attendance-Box h5 {
   font-family: var(--dFont);
-  color: var(--dark);
+  color: var(--text-color);
 }
 
 .Attendance-Box input {

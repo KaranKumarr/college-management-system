@@ -39,6 +39,11 @@ li {
   width: 100%;
 }
 
+.Courses-Box,
+.Courses-Data h5 {
+  color: var(--text-color);
+}
+
 .Courses-Links button {
   border: none;
   outline: none;

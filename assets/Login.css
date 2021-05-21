@@ -34,6 +34,10 @@
   padding: 2rem;
 }
 
+.login-form input {
+  opacity: 80%;
+}
+
 @media only screen and (max-width: 800px) {
   .login-form {
     height: 40vh;

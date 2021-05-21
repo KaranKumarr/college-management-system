@@ -2,8 +2,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Recursive:wght@300;400;500;600;800;900&display=swap");
 
 :root {
-  --dark: #404040;
-  --light: #ffffff;
+  --dark: #7624f9;
+  --light: #ebebeb;
+  --text-color: rgb(53, 53, 53);
   --dFont: "Roboto Mono", monospace;
   --sFont: "Recursive", sans-serif;
 }
