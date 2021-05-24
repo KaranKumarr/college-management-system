@@ -28,7 +28,7 @@
                 <%Attendance.forEach((Attend,i)=>{%>
                     <li class="Attendance-Box" style="justify-content: space-between;">
 
-                        <% for(var j=0; j < Attendance.length; j++){ if(Attend.StudentID==StudentList[j].StudentID){%>
+                        <% for(let j=0; j < maxLength; j++){ if(Attend.StudentID==StudentList[j].StudentID){%>
                             <h5>
 
                                 <%=StudentList[j].StudentName%> -
@@ -43,7 +43,6 @@
 
             </ul>
 
-            <button>Add New Attendance</button>
 
         </section>
 

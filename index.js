@@ -26,7 +26,6 @@ const db = mysql.createConnection({
     password: '',
     database: 'college-management-system'
 })
-
 //Connecting to Mysql
 db.connect((err) => {
     if (err) throw err
@@ -39,7 +38,6 @@ app.get('/', (req, res) => {
     res.render('preLogger.ejs');
 
 })
-
 //Student FILE accessing from here
 app.use(studentRoutes);
 

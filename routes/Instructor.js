@@ -4,7 +4,7 @@ const router = express.Router();
 const mysql = require('mysql');
 //To get values from HTML/EJS files
 const bodyParser = require('body-parser');
-//enabling body parser
+//enabling body parser 
 router.use(bodyParser.urlencoded({ extended: true }))
 router.use(express.static('public'));
 //To Store Cache
@@ -157,7 +157,6 @@ router.get("/InstructorCourses/:courseID", (req, res) => {
 
         let InstructorName = FacultyCache.get("Instructor").InstructorName;
 
-        console.log(CourseName);
 
         res.render("InstructorCoursesInfo.ejs", { InstructorName: InstructorName, CourseName: CourseName, Schedule: schedule[0] })
 
@@ -180,9 +179,9 @@ router.get("/InstructorClasses/:courseID/:index", (req, res) => {
         }
 
     })
+
     getStudentList().then((Student) => {
-        console.log(Student[0]);
-        res.render("InstructorAttendance.ejs", { Attendance: filteredAttendance, date: dates[index], StudentList: Student })
+        res.render("InstructorAttendance.ejs", { Attendance: filteredAttendance, date: dates[index], StudentList: Student, maxLength: Student.length })
     })
 
 })
