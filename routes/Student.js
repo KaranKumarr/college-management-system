@@ -11,7 +11,7 @@ let bcrypt = require('bcrypt');
 //Getting Student Information
 let { getStudentInfo } = require('./data/studentInfo');
 //Getting Student's Course Information 
-let { getCurrentCourses, getAttendance, getInstructor, getSchedule } = require('./data/coursesInfo');
+let { getCurrentCourses, getAttendance, getInstructor, getSchedule, getExamsSchedule } = require('./data/coursesInfo');
 //To Store Cache
 const NodeCache = require("node-cache");
 const myCache = new NodeCache();
@@ -187,6 +187,19 @@ router.post('/Modify/Student', (req, res) => {
 
         res.redirect('/StudentHome');
     }
+
+})
+
+router.get('/Exams', (req, res) => {
+
+    let departmentName = myCache.get("Student").DepartmentName;
+
+    // console.log(departmentName);
+
+    getExamsSchedule(departmentName).then((Schedule) => {
+        // console.log(Schedule);
+        res.render("ExamsSchedule", { ExamSchedule: Schedule });
+    })
 
 })
 

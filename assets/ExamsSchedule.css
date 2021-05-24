@@ -1,0 +1,36 @@
+.Exams {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  justify-content: space-around;
+  border-radius: 7.5px;
+  border: 3px solid var(--dark);
+}
+
+li {
+  list-style: none;
+}
+
+.Exams-Heading-Box {
+  color: var(--light);
+  font-size: 1rem;
+  background-color: var(--dark);
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-around;
+  font-family: var(--dFont);
+  font-weight: 400;
+}
+
+.Exams-Box {
+  margin: 0.5rem;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  justify-content: space-around;
+  border-radius: 7.5px;
+  border: 0.3rem solid var(--dark);
+  font-family: var(--dFont);
+  color: var(--text-color);
+}

@@ -127,4 +127,30 @@ const getCoursesTaken = (CourseID) => {
     })
 }
 
-module.exports = { getCurrentCourses, getAttendance, getInstructor, getSchedule, getCoursesOFInstructor, getCoursesTaken }
+const getExamsSchedule = (DepartmentName) => {
+
+    let sqlQuery = 'SELECT DATE_FORMAT(exam_date,"%d %M %Y") as ExamDate,Date_Format(Exam_Time,"%r") as  ExamTime,Class_Room as Classroom, Course_Name as CourseName FROM exams_schedule LEFT JOIN courses_offered ON exams_schedule.Course_ID = courses_offered.Course_ID Where Department_Name = "' + DepartmentName + '"';
+
+    return new Promise((resolve, reject) => {
+
+        db.query(sqlQuery, (err, result) => {
+
+            if (err) { reject(err) } else {
+
+
+                //To Stringify The Row Data Packet Value Returned By the Query
+                let json = JSON.stringify(result);
+                //To Parse That Stringified Data To Proper Javascript Object
+                let ExamsSchedule = JSON.parse(json);
+
+                resolve(ExamsSchedule)
+
+            }
+
+        })
+
+    })
+
+}
+
+module.exports = { getCurrentCourses, getAttendance, getInstructor, getSchedule, getCoursesOFInstructor, getCoursesTaken, getExamsSchedule }
