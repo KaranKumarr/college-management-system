@@ -12,10 +12,11 @@ let bcrypt = require('bcrypt');
 let { getStudentInfo } = require('./data/studentInfo');
 //Getting Student's Course Information 
 let { getCurrentCourses, getAttendance, getInstructor, getSchedule, getExamsSchedule } = require('./data/coursesInfo');
+//To get Library Details
+const { getBooks } = require('./data/Library');
 //To Store Cache
 const NodeCache = require("node-cache");
 const myCache = new NodeCache();
-
 //enabling body parser
 router.use(bodyParser.urlencoded({ extended: true }))
 router.use(express.static('public'));
@@ -194,10 +195,8 @@ router.get('/Exams', (req, res) => {
 
     let departmentName = myCache.get("Student").DepartmentName;
 
-    // console.log(departmentName);
-
     getExamsSchedule(departmentName).then((Schedule) => {
-        // console.log(Schedule);
+       
         res.render("ExamsSchedule", { ExamSchedule: Schedule });
     })
 

@@ -129,7 +129,7 @@ const getCoursesTaken = (CourseID) => {
 
 const getExamsSchedule = (DepartmentName) => {
 
-    let sqlQuery = 'SELECT DATE_FORMAT(exam_date,"%d %M %Y") as ExamDate,Date_Format(Exam_Time,"%r") as  ExamTime,Class_Room as Classroom, Course_Name as CourseName FROM exams_schedule LEFT JOIN courses_offered ON exams_schedule.Course_ID = courses_offered.Course_ID Where Department_Name = "' + DepartmentName + '"';
+    let sqlQuery = 'SELECT DATE_FORMAT(exam_date,"%d %M %Y") as ExamDate,Date_Format(Exam_Time,"%r") as  ExamTime,Class_Room as Classroom, Course_Name as CourseName FROM exams_schedule LEFT JOIN courses_offered ON exams_schedule.Course_ID = courses_offered.Course_ID Where Department_Name = "' + DepartmentName + '" ORDER BY exam_date';
 
     return new Promise((resolve, reject) => {
 
