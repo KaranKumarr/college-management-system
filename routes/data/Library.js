@@ -17,7 +17,7 @@ const getBooks = () => {
 
     return new Promise((resolve, reject) => {
 
-        const sqlQuery = 'SELECT * FROM library'
+        const sqlQuery = 'SELECT * FROM library WHERE Book_Available = "True" ORDER BY Book_Name'
 
         db.query(sqlQuery, (err, result) => {
 

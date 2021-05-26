@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/assets/index.css">
+    <link rel="stylesheet" href="/assets/Navbar.css">
+    <link rel="stylesheet" href="/assets/Library.css">
+</head>
+
+<body>
+
+    <%- include("./partials/StudentNavbar.ejs") %>
+
+        <section class="Library">
+            <span class="Library-Heading-Box">
+                <h1>Books Available</h1>
+            </span>
+
+            <ul class="Library-Data">
+                <!-- <div class="Library-Box"> -->
+                <!-- <h5>Book Name</h5> -->
+                <!-- <h5>Author</h5> -->
+                <%Books.forEach((book)=>{%>
+
+                    <li class="Library-Box">
+                        <h5>
+                            <%=book.Book_Name%>
+                        </h5>
+                        <h5>
+                            <%=book.Book_Author%>
+                        </h5>
+                    </li>
+
+                    <%})%>
+                        <!-- </div> -->
+            </ul>
+        </section>
+
+</body>
+
+</html>

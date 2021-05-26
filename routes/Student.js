@@ -196,8 +196,20 @@ router.get('/Exams', (req, res) => {
     let departmentName = myCache.get("Student").DepartmentName;
 
     getExamsSchedule(departmentName).then((Schedule) => {
-       
+
         res.render("ExamsSchedule", { ExamSchedule: Schedule });
+    })
+
+})
+
+router.get('/Library', (req, res) => {
+
+    getBooks().then((books) => {
+
+        console.log(books);
+
+        res.render('Library.ejs', { Books: books });
+
     })
 
 })
