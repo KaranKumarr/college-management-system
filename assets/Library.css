@@ -4,7 +4,7 @@
   margin: 1rem;
   justify-content: space-around;
   border-radius: 7.5px;
-  border: 3px solid var(--dark);
+  /* border: 3px solid var(--dark); */
 }
 
 li {
@@ -13,13 +13,18 @@ li {
 
 .Library-Heading-Box {
   color: var(--light);
-  font-size: 1rem;
+  font-size: 1.25rem;
+  width: 100%;
+  text-decoration: none;
   background-color: var(--dark);
   padding: 0.5rem;
   display: flex;
   justify-content: space-around;
   font-family: var(--dFont);
-  font-weight: 400;
+  font-weight: 800;
+  border: 1px solid var(--text-color);
+
+  transition: 0.5s;
 }
 
 .Library-Box {
@@ -31,6 +36,41 @@ li {
   border: 1px solid var(--text-color);
 }
 
+.Library-Box button {
+  text-transform: uppercase;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.2rem;
+  background-color: var(--dark);
+  color: var(--light);
+  padding: 0.5rem;
+  transition: 0.3s ease-in-out;
+}
+.Library-Box button:hover {
+  cursor: pointer;
+  background-color: var(--light);
+  color: var(--dark);
+}
+
 .Library-Box h5 {
+  padding: 0.5rem;
   width: 100%;
+}
+
+.Library-Heading {
+  display: flex;
+}
+
+#Books-Borrowed {
+  display: none;
+}
+
+.Library-Heading-Box:hover {
+  cursor: pointer;
+  opacity: 50%;
+}
+
+.active-btn {
+  color: var(--text-color);
+  background-color: var(--light);
 }

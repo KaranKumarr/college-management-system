@@ -16,29 +16,61 @@
     <%- include("./partials/StudentNavbar.ejs") %>
 
         <section class="Library">
-            <span class="Library-Heading-Box">
-                <h1>Books Available</h1>
+            <span class="Library-Heading">
+                <a class="Library-Heading-Box active-btn" id="library-btn" onclick="goToBooksAvailable()">Library</a>
+                <a class="Library-Heading-Box" id="borrowed-btn" onclick="goToBooksBorrowed()">Books Borrowed</a>
             </span>
+            <div id="Books-Available">
 
-            <ul class="Library-Data">
-                <!-- <div class="Library-Box"> -->
-                <!-- <h5>Book Name</h5> -->
-                <!-- <h5>Author</h5> -->
-                <%Books.forEach((book)=>{%>
+                <ul class="Library-Data">
+                    <!-- <div class="Library-Box"> -->
+                    <!-- <h5>Book Name</h5> -->
+                    <!-- <h5>Author</h5> -->
+                    <%Books.forEach((book)=>{%>
+                        <form action="/Library/borrow" method="POST">
+                            <li class="Library-Box">
+                                <input name="bookID" type="text" value=<%=book.Book_ID%> style="display: none;">
+                                <h5>
+                                    <%=book.Book_Name%>
+                                </h5>
+                                <h5>
+                                    <%=book.Book_Author%>
+                                </h5>
+                                <button>Borrow</button>
+                            </li>
+                        </form>
+                        <%})%>
+                            <!-- </div> -->
+                </ul>
+            </div>
+            <div id="Books-Borrowed">
 
-                    <li class="Library-Box">
-                        <h5>
-                            <%=book.Book_Name%>
-                        </h5>
-                        <h5>
-                            <%=book.Book_Author%>
-                        </h5>
-                    </li>
+                <h1>HEEEEEEEEEY</h1>
 
-                    <%})%>
-                        <!-- </div> -->
-            </ul>
+            </div>
         </section>
+
+        <script>
+
+            const goToBooksBorrowed = () => {
+
+                document.getElementById("Books-Available").style.display = 'none';
+                document.getElementById("Books-Borrowed").style.display = 'block'
+                document.getElementById("library-btn").classList.remove("active-btn");
+                document.getElementById("borrowed-btn").classList.add("active-btn");
+            }
+
+            const goToBooksAvailable = () => {
+                document.getElementById("Books-Available").style.display = 'block';
+                document.getElementById("Books-Borrowed").style.display = 'none';
+
+                document.getElementById("borrowed-btn").classList.remove("active-btn");
+                document.getElementById("library-btn").classList.add("active-btn");
+            }
+
+
+
+        </script>
 
 </body>
 
