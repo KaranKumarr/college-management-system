@@ -12,29 +12,30 @@
 
 <body>
 
-    <div class="login-box">
-        <button class="goBack" onclick="home()">&larr; Go Back</button>
+    <%- include("./partials/darkMode.ejs") %>
+        <div class="login-box">
+            <button class="goBack" onclick="home()">&larr; Go Back</button>
 
-        <form method="POST" action='/InstructorHome' class="login-form">
-            <h1>Hello, There</h1>
-            <input type="text" name="InstructorID" placeholder="USER ID">
-            <input type="password" name="InstructorPassword" placeholder="PASSWORD">
-            <h5>
-                <%=status%>
-            </h5>
-            <button type="submit">Login</button>
+            <form method="POST" action='/InstructorHome' class="login-form">
+                <h1>Hello, There</h1>
+                <input type="text" name="InstructorID" placeholder="USER ID">
+                <input type="password" name="InstructorPassword" placeholder="PASSWORD">
+                <h5>
+                    <%=status%>
+                </h5>
+                <button type="submit">Login</button>
 
-        </form>
-    </div>
+            </form>
+        </div>
 
-    <script>
-        const home = () => {
+        <script>
+            const home = () => {
 
 
-            window.location.href = "/";
+                window.location.href = "/";
 
-        }
-    </script>
+            }
+        </script>
 </body>
 
 </html>

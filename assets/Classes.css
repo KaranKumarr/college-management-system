@@ -67,25 +67,3 @@
     font-size: 1.5rem;
   }
 }
-
-.add-btn {
-  width: 100%;
-  padding: 1rem;
-  background-color: var(--dark);
-  border: none;
-  font-family: var(--dFont);
-  font-weight: 900;
-  color: var(--light);
-  font-size: 1rem;
-  border-top: 3px solid var(--light);
-  transition: color 1s;
-  transition: background 1s;
-}
-
-.add-btn:hover {
-  color: var(--dark);
-  background-color: var(--light);
-  cursor: pointer;
-  border-top: 3px solid var(--dark);
-  /* border-radius: 7.5px; */
-}

@@ -20,26 +20,30 @@
         <div class="Student-Box Box">
             <button class="Student-Btn Btn" onclick="goToStudent()">STUDENT?</button>
         </div>
+        <button id="dark-mode-toggle">DARK</button>
     </main>
 
-    <script>
-
-        const goToFaculty = () => {
-
-
-            window.location.href = "/Faculty";
-
-        }
+    <%- include("./partials/darkMode.ejs") %>
+        <script>
 
 
-        const goToStudent = () => {
+
+            const goToFaculty = () => {
 
 
-            window.location.href = "/Student";
+                window.location.href = "/Faculty";
 
-        }
+            }
 
-    </script>
+
+            const goToStudent = () => {
+
+
+                window.location.href = "/Student";
+
+            }
+
+        </script>
 
 </body>
 

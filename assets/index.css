@@ -2,11 +2,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Recursive:wght@300;400;500;600;800;900&display=swap");
 
 :root {
-  --dark: #7624f9;
-  --light: #ebebeb;
-  --text-color: rgb(53, 53, 53);
+  --dark: #ebebeb;
+  --light: #211f21;
+  --text-color: #c7c7c7;
   --dFont: "Roboto Mono", monospace;
   --sFont: "Recursive", sans-serif;
+}
+
+.darkMode {
+  --dark: #211f21;
+  --light: #c7c7c7;
+  --text-color: #211f21;
 }
 
 * {
@@ -21,7 +27,7 @@ body {
 }
 
 html {
-  font-size: 16px;
+  font-size: 15px;
 }
 
 @media only screen and (max-width: 1200px) {
