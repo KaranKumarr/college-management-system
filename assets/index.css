@@ -2,19 +2,27 @@
 @import url("https://fonts.googleapis.com/css2?family=Recursive:wght@300;400;500;600;800;900&display=swap");
 
 :root {
-  --dark: #ebebeb;
-  --light: #211f21;
-  --text-color: #c7c7c7;
+  --dark: #211f21;
+  --light: #ffffff;
+  --text-color: #211f21;
   --dFont: "Roboto Mono", monospace;
   --sFont: "Recursive", sans-serif;
 }
 
 .darkMode {
-  --dark: #211f21;
-  --light: #c7c7c7;
-  --text-color: #211f21;
+  --dark: #c7c7c7;
+  --light: #1f1f1f;
+  --text-color: #ebebeb;
 }
 
+#dark-mode-toggle span {
+  color: var(--light);
+
+  content: "\263D";
+}
+.icon-moon:before {
+  content: "\e900";
+}
 * {
   margin: 0;
   padding: 0;
