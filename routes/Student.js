@@ -38,14 +38,13 @@ db.connect((err) => {
 
 let isLogged = false;
 
-let status = '';
 //Login page OR home page if logged in
 router.get('/Student', (req, res) => {
 
+    let status = '';
 
     if (!isLogged) {
         res.render('StudentLogin.ejs', { status: status });
-
     } else {
         res.render('StudentHome.ejs');
     }
@@ -86,8 +85,8 @@ router.post('/StudentHome', (req, res) => {
                 res.render('StudentHome.ejs', { Student: tempStudentHolder, StudentInfo: StudentInfo[0] })
             })
         } else {
-            status = 'LogIN Again'
-            res.render('StudentLogin', { status: status })
+            status = 'Please try again'
+            res.render('StudentLogin.ejs', { status: status })
         }
     })
 

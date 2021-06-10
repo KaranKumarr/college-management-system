@@ -40,6 +40,7 @@ let isLogged = false;
 let status = '';
 //Login page OR home page if logged in
 router.get('/Instructor', (req, res) => {
+    let status = '';
 
     if (!isLogged) {
         res.render('InstructorLogin.ejs', { status: status });
@@ -83,6 +84,9 @@ router.post('/InstructorHome', (req, res) => {
 
             })
 
+        } else {
+            status = 'Please try again'
+            res.render('InstructorLogin.ejs', { status: status })
         }
     })
 
