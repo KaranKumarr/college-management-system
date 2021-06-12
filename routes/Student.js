@@ -13,7 +13,7 @@ let { getStudentInfo } = require('./data/studentInfo');
 //Getting Student's Course Information 
 let { getCurrentCourses, getAttendance, getInstructor, getSchedule, getExamsSchedule } = require('./data/coursesInfo');
 //To get Library Details
-const { getBooks, borrowBook } = require('./data/Library');
+const { getBooks, borrowBook, getBorrowedBooks, returnBook } = require('./data/Library');
 //To Store Cache
 const NodeCache = require("node-cache");
 const myCache = new NodeCache();
@@ -214,8 +214,10 @@ router.get('/Library', (req, res) => {
 
         // console.log(books);
         // borrowBook(111, 111)
-        res.render('Library.ejs', { Books: books });
+        getBorrowedBooks(21100).then((borrowedBooks) => {
 
+            res.render('Library.ejs', { Books: books, borrowedBooks: borrowedBooks });
+        })
     })
 
 })
@@ -228,6 +230,17 @@ router.post('/Library/borrow', (req, res) => {
     res.redirect('/Library');
 
 })
+
+router.post('/Library/return', (req, res) => {
+
+    const bookID = req.body.returnBookID;
+    const StudentID = myCache.get("Student").StudentID;
+    console.log(bookID);
+    returnBook(bookID, StudentID);
+    res.redirect('/Library');
+
+})
+
 
 //LogOut
 router.get('/Logout', (req, res) => {

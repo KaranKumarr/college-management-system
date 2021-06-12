@@ -31,12 +31,13 @@ li {
   display: flex;
   color: var(--text-color);
   padding: 0.5rem;
-  justify-content: space-around;
+  justify-content: space-between;
   font-size: 1.2rem;
   border: 1px solid var(--text-color);
 }
 
 .Library-Box button {
+  width: 50%;
   text-transform: uppercase;
   font-size: 1rem;
   border: none;

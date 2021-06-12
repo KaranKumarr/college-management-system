@@ -27,25 +27,53 @@
                     <!-- <h5>Book Name</h5> -->
                     <!-- <h5>Author</h5> -->
                     <%Books.forEach((book)=>{%>
-                        <form action="/Library/borrow" method="POST">
-                            <li class="Library-Box">
-                                <input name="bookID" type="text" value=<%=book.Book_ID%> style="display: none;">
-                                <h5>
-                                    <%=book.Book_Name%>
-                                </h5>
-                                <h5>
-                                    <%=book.Book_Author%>
-                                </h5>
-                                <button>Borrow</button>
-                            </li>
-                        </form>
-                        <%})%>
-                            <!-- </div> -->
+                        <%if(book.Book_Available==='True' ){%>
+                            <form action="/Library/borrow" method="POST">
+                                <li class="Library-Box">
+                                    <input name="bookID" type="text" value=<%=book.Book_ID%> style="display: none;">
+                                    <h5>
+                                        <%=book.Book_Name%>
+                                    </h5>
+                                    <h5>
+                                        <%=book.Book_Author%>
+                                    </h5>
+                                    <button>Borrow</button>
+                                </li>
+                            </form>
+                            <%}%>
+                                <%})%>
+                                    <!-- </div> -->
                 </ul>
             </div>
             <div id="Books-Borrowed">
 
-                <h1>HEEEEEEEEEY</h1>
+                <%borrowedBooks.forEach((borrowedBook)=>{%>
+                    <form action="/Library/return" method="POST">
+                        <li class="Library-Box">
+                            <%Books.forEach((book)=>{%>
+                                <%if(borrowedBook.Book_ID===book.Book_ID){%>
+                                    <input name="returnBookID" type="text" value=<%=book.Book_ID%> style="display: none;">
+                                    <h5>
+                                        <%=book.Book_Name%>
+                                    </h5>
+                                    <h5>
+                                        <%=borrowedBook.Issue_Date%>
+                                    </h5>
+                                    <%if(borrowedBook.Return_Date===null ){%>
+                                        <button>Return</button>
+                                        <%} else{%>
+                                            <h5 style="
+                                            text-align: center; width:50%;">
+                                                <%=borrowedBook.Return_Date%>
+                                            </h5>
+                                            <%}%>
+                                                <%}%>
+
+                                                    <%})%>
+                        </li>
+                    </form>
+                    <%})%>
+
 
             </div>
         </section>
