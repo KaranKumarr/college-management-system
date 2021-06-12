@@ -57,8 +57,16 @@ router.post('/InstructorHome', (req, res) => {
 
     let sqlQuery = 'SELECT Instructor_ID as InstructorID,Instructor_Name as InstructorName,Password as Password,Year_Joined as YearJoined, Instructor_NIC as InstructorNIC,Instructor_Email as InstructorEmail FROM Instructors WHERE Instructor_ID = ' + ID;
 
+
     db.query(sqlQuery, (err, result) => {
-        if (err) throw err;
+        if (err) {
+            status = 'Please Enter The Correct User Name And Password';
+            res.render('InstructorLogin.ejs', { status: status })
+        } else if (result.length === 0) {
+
+            status = 'Invalid User ID';
+            res.render('InstructorLogin.ejs', { status: status })
+        }
 
         let json = JSON.stringify(result);
         let temp = JSON.parse(json);
@@ -85,7 +93,7 @@ router.post('/InstructorHome', (req, res) => {
             })
 
         } else {
-            status = 'Please try again'
+            status = 'Invalid Password'
             res.render('InstructorLogin.ejs', { status: status })
         }
     })

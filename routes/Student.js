@@ -60,8 +60,14 @@ router.post('/StudentHome', (req, res) => {
     let mysql = 'SELECT Student_ID as StudentID,Student_Name as StudentName,Password as Password,Year_Joined as YearJoined, Student_NIC as StudentNIC,Department_Name as DepartmentName FROM student_academics WHERE Student_ID = ' + ID;
 
     db.query(mysql, (err, result) => {
+        if (err) {
+            status = 'Please Enter The Correct User Name And Password';
+            res.render('StudentLogin.ejs', { status: status })
+        } else if (result.length === 0) {
 
-        if (err) throw err;
+            status = 'Invalid User ID';
+            res.render('StudentLogin.ejs', { status: status })
+        }
 
         let json = JSON.stringify(result);
         let temp = JSON.parse(json);
@@ -85,7 +91,7 @@ router.post('/StudentHome', (req, res) => {
                 res.render('StudentHome.ejs', { Student: tempStudentHolder, StudentInfo: StudentInfo[0] })
             })
         } else {
-            status = 'Please try again'
+            status = 'Invalid Password'
             res.render('StudentLogin.ejs', { status: status })
         }
     })
