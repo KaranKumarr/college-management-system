@@ -107,3 +107,6 @@ dist
 
 Test.js
 test.js
+
+#package-lock.json
+package-lock.json
