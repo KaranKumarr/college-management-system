@@ -57,6 +57,24 @@ li {
   padding: 0.5rem;
   width: 100%;
 }
+.Library-Box select {
+  font-size: 1rem;
+  padding: 0.5rem;
+  background-color: var(--dark);
+  color: var(--light);
+  width: 100%;
+  border: none;
+  border-radius: 0;
+}
+.Library-Box select input {
+  display: none;
+}
+.Library-Box select:focus,
+select:active {
+  border: none;
+  cursor: pointer;
+  opacity: 95%;
+}
 
 .Library-Heading {
   display: flex;
@@ -74,4 +92,11 @@ li {
 .active-btn {
   color: var(--text-color);
   background-color: var(--light);
+}
+
+#hidden-btn {
+  width: 100%;
+  border-radius: 0;
+  display: none;
+  border-left: 1px solid var(--light);
 }

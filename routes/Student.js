@@ -210,11 +210,12 @@ router.get('/Exams', (req, res) => {
 //Books Available At Library
 router.get('/Library', (req, res) => {
 
+
+    const StudentID = myCache.get("Student").StudentID;
+    console.log(StudentID);
     getBooks().then((books) => {
 
-        // console.log(books);
-        // borrowBook(111, 111)
-        getBorrowedBooks(21100).then((borrowedBooks) => {
+        getBorrowedBooks(StudentID).then((borrowedBooks) => {
 
             res.render('Library.ejs', { Books: books, borrowedBooks: borrowedBooks });
         })
@@ -229,6 +230,13 @@ router.post('/Library/borrow', (req, res) => {
     borrowBook(bookID, StudentID);
     res.redirect('/Library');
 
+})
+
+router.get('/Library/borrow', (req, res) => {
+    const bookID = req.query.books;
+    const StudentID = myCache.get("Student").StudentID;
+    borrowBook(bookID, StudentID);
+    res.redirect('/Library')
 })
 
 router.post('/Library/return', (req, res) => {

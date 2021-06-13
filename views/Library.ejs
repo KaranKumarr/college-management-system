@@ -26,9 +26,31 @@
                     <!-- <div class="Library-Box"> -->
                     <!-- <h5>Book Name</h5> -->
                     <!-- <h5>Author</h5> -->
+
+
+                    <form class="Library-Box" style="padding: 0;" id="borrow-form" action="/Library/borrow"
+                        method="GET"> <select name="books" id="books" onclick="showButton()" form="borrow-form">
+
+                            <option value="" selected disabled hidden>Search Book Here</option>
+
+                            <%for(let i=0;i<Books.length;i++){%>
+                                <%if(Books[i].Book_Available==='True' ){%>
+
+                                    <option name="book_ID" value=<%=Books[i].Book_ID%>><%=Books[i].Book_Name%>
+                                            <%=Books[i].Book_ID%>
+                                                <%}%>
+                                    </option>
+                                    <%}%>
+                        </select>
+                        <button id="hidden-btn">Borrow Search
+                            Book?</button>
+                    </form>
+
+
                     <%Books.forEach((book)=>{%>
+
                         <%if(book.Book_Available==='True' ){%>
-                            <form action="/Library/borrow" method="POST">
+                            <form action="/Library/borrow" method="POST" id="borrow-form">
                                 <li class="Library-Box">
                                     <input name="bookID" type="text" value=<%=book.Book_ID%> style="display: none;">
                                     <h5>
@@ -47,12 +69,27 @@
             </div>
             <div id="Books-Borrowed">
 
+                <li class="Library-Box" style="background:var(--dark); color:var(--light)">
+                    <h5> Book Name
+                    </h5>
+                    <h5>
+                        Issue Date
+                    </h5>
+                    <h5 style="text-align: center; width:50%;">
+                        Return Status
+                    </h5>
+                </li>
+
+
                 <%borrowedBooks.forEach((borrowedBook)=>{%>
-                    <form action="/Library/return" method="POST">
-                        <li class="Library-Box">
-                            <%Books.forEach((book)=>{%>
-                                <%if(borrowedBook.Book_ID===book.Book_ID){%>
-                                    <input name="returnBookID" type="text" value=<%=book.Book_ID%> style="display: none;">
+                    <%Books.forEach((book)=>{%>
+                        <%if(borrowedBook.Book_ID===book.Book_ID){%>
+                            <form action="/Library/return" method="POST">
+                                <li class="Library-Box">
+
+                                    <input name="returnBookID" type="text" value=<%=book.Book_ID%>
+                                    style="display:
+                                    none;">
                                     <h5>
                                         <%=book.Book_Name%>
                                     </h5>
@@ -64,15 +101,17 @@
                                         <%} else{%>
                                             <h5 style="
                                             text-align: center; width:50%;">
-                                                <%=borrowedBook.Return_Date%>
-                                            </h5>
-                                            <%}%>
-                                                <%}%>
 
-                                                    <%})%>
-                        </li>
-                    </form>
-                    <%})%>
+                                                Returned ON <%=borrowedBook.Return_Date%>
+                                            </h5>
+                                </li>
+                            </form>
+
+                            <%}%>
+                                <%}%>
+
+                                    <%})%>
+                                        <%})%>
 
 
             </div>
@@ -97,6 +136,11 @@
             }
 
 
+            const showButton = () => {
+
+                document.getElementById("hidden-btn").style.display = 'block';
+
+            }
 
         </script>
 
