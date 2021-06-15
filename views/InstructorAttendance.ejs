@@ -28,16 +28,15 @@
                 <%Attendance.forEach((Attend,i)=>{%>
                     <li class="Attendance-Box" style="justify-content: space-between;">
 
-                        <% for(let j=0; j < maxLength; j++){ if(Attend.StudentID==StudentList[j].StudentID){%>
-                            <h5>
-
-                                <%=StudentList[j].StudentName%> -
-                                    <%=Attend.StudentID%>
-                            </h5>
-                            <%}}%>
-                                <h5>
-                                    <%=Attend.wasPresent%>
-                                </h5>
+                        <h5>
+                            <%=Attend.StudentName%>
+                        </h5>
+                        <h5>
+                            <%=Attend.StudentID%>
+                        </h5>
+                        <h5>
+                            <%=Attend.wasPresent%>
+                        </h5>
                     </li>
                     <%})%>
 

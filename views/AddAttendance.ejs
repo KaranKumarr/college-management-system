@@ -21,8 +21,12 @@
 
             <form method="POST" action="/Add/Attendance">
 
-                <%Courses.forEach((Course)=>{%>
+                <%Courses.forEach((Course,i)=>{%>
                     <span class="Attendance-Box">
+                        <h5>
+                            <%=Courses[i].StudentName%>
+                        </h5>
+
                         <input type="text" value=<%=Course.StudentID%> name="StudentIDs[]" readonly/>
                         <select name="Statuses[]" id="">
                             <option value="Present">Present</option>

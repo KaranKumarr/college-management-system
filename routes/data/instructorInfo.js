@@ -37,7 +37,7 @@ function getInstructorInfo(NIC) {
 
 const getAttendance = (CourseID) => {
 
-    let sqlQuery = 'SELECT  wasPresent as wasPresent,DATE_FORMAT(class_date,"%d %M %Y") as classDate,Course_ID as CourseID, Student_ID as StudentID FROM attendance WHERE Course_ID =' + CourseID + ' ORDER BY class_date ASC';
+    let sqlQuery = 'SELECT  Student_Name as StudentName, wasPresent as wasPresent,DATE_FORMAT(class_date,"%d %M %Y") as classDate,Course_ID as CourseID, attendance.Student_ID as StudentID FROM attendance LEFT JOIN student_academics ON attendance.Student_ID = student_academics.Student_ID WHERE Course_ID =' + CourseID + ' ORDER BY class_date ASC';
 
     return new Promise((resolve, reject) => {
         db.query(sqlQuery, (err, result) => {
@@ -46,6 +46,7 @@ const getAttendance = (CourseID) => {
             let json = JSON.stringify(result);
             //To Parse That Stringified Data To Proper Javascript Object
             let Attendance = JSON.parse(json);
+            console.log(Attendance);
             resolve(Attendance);
         });
     })

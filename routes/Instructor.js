@@ -205,7 +205,7 @@ router.get('/Add/Attendance/:courseID', (req, res) => {
     let courseID = req.params.courseID;
 
     getCoursesTaken(courseID).then((Courses) => {
-
+        console.log(Courses);
         FacultyCache.set("CourseID", courseID, 3000)
         res.render("AddAttendance.ejs", { Courses: Courses })
 
@@ -221,11 +221,6 @@ router.post('/Add/Attendance', (req, res) => {
     let StudentIDs = req.body.StudentIDs;
     let Statuses = req.body.Statuses;
     let date = req.body.classdate;
-
-    // console.log(CourseID);
-    // console.log(StudentIDs);
-    // console.log(Statuses);
-    // console.log(date);
 
     let Values = new Array();
 

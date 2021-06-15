@@ -58,6 +58,8 @@ li {
 }
 
 .Attendance-Box button {
+  margin: 0 1rem;
+  border: 0.1rem solid var(--dark);
   background-color: var(--light);
   padding: 0.5rem 1rem;
   border-radius: 0.35rem;
@@ -89,4 +91,11 @@ li {
 
 .Red {
   color: #ff5329;
+}
+
+.Attendance-Box input,
+.Attendance-Box h5,
+.Attendance-Box select,
+.Attendance-Box button {
+  width: 100%;
 }

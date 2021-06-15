@@ -108,7 +108,7 @@ const getCoursesOFInstructor = (InstructorID) => {
 
 const getCoursesTaken = (CourseID) => {
 
-    let sqlQuery = 'SELECT Course_ID as CourseID, Student_ID as StudentID, Year_Taken as YearTaken, Passed as Passed, Percentage as Percentage FROM courses_taken WHERE Passed = "False" && Course_ID = ' + CourseID;
+    let sqlQuery = 'SELECT Student_Name as StudentName,Course_ID as CourseID, courses_taken.Student_ID as StudentID, Year_Taken as YearTaken, Passed as Passed, Percentage as Percentage FROM courses_taken LEFT JOIN student_academics ON courses_taken.Student_ID = student_academics.Student_ID WHERE Passed = "False" && Course_ID = ' + CourseID;
 
     return new Promise((resolve, reject) => {
         db.query(sqlQuery, (err, result) => {
@@ -119,7 +119,7 @@ const getCoursesTaken = (CourseID) => {
                 let json = JSON.stringify(result);
                 //To Parse That Stringified Data To Proper Javascript Object
                 let CoursesTaken = JSON.parse(json);
-
+                console.log(CoursesTaken);
                 resolve(CoursesTaken);
 
             }
