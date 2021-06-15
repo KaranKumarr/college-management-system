@@ -23,10 +23,6 @@
             <div id="Books-Available">
 
                 <ul class="Library-Data">
-                    <!-- <div class="Library-Box"> -->
-                    <!-- <h5>Book Name</h5> -->
-                    <!-- <h5>Author</h5> -->
-
 
                     <form class="Library-Box" style="padding: 0;" id="borrow-form" action="/Library/borrow"
                         method="GET"> <select name="books" id="books" onclick="showButton()" form="borrow-form">
@@ -37,8 +33,7 @@
                                 <%if(Books[i].Book_Available==='True' ){%>
 
                                     <option name="book_ID" value=<%=Books[i].Book_ID%>><%=Books[i].Book_Name%>
-                                            <%=Books[i].Book_ID%>
-                                                <%}%>
+                                            <%}%>
                                     </option>
                                     <%}%>
                         </select>
@@ -75,13 +70,16 @@
                     <h5>
                         Issue Date
                     </h5>
+                    <h5>
+                        Charges
+                    </h5>
                     <h5 style="text-align: center; width:50%;">
                         Return Status
                     </h5>
                 </li>
 
 
-                <%borrowedBooks.forEach((borrowedBook)=>{%>
+                <%borrowedBooks.forEach((borrowedBook,i)=>{%>
                     <%Books.forEach((book)=>{%>
                         <%if(borrowedBook.Book_ID===book.Book_ID){%>
                             <form action="/Library/return" method="POST">
@@ -96,13 +94,21 @@
                                     <h5>
                                         <%=borrowedBook.Issue_Date%>
                                     </h5>
+                                    <h5>
+                                        <%if(charges[i]=== 0){%>
+                                            Return On Time
+                                            <%}else{%>
+                                                <span style="color:red">
+                                                    <%=charges[i]%>
+                                                </span>
+                                                <%}%>
+                                    </h5>
                                     <%if(borrowedBook.Return_Date===null ){%>
                                         <button>Return</button>
                                         <%} else{%>
                                             <h5 style="
                                             text-align: center; width:50%;">
-
-                                                Returned ON <%=borrowedBook.Return_Date%>
+                                                <%=borrowedBook.Return_Date%>
                                             </h5>
                                 </li>
                             </form>

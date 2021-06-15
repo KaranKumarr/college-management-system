@@ -212,12 +212,29 @@ router.get('/Library', (req, res) => {
 
 
     const StudentID = myCache.get("Student").StudentID;
-    console.log(StudentID);
+    // console.log(StudentID);
     getBooks().then((books) => {
 
         getBorrowedBooks(StudentID).then((borrowedBooks) => {
 
-            res.render('Library.ejs', { Books: books, borrowedBooks: borrowedBooks });
+            let charges = new Array();
+
+            for (let i = 0; i < borrowedBooks.length; i++) {
+
+                let issueDate = new Date(borrowedBooks[i].Issue_Date);
+                let returnDate = new Date(borrowedBooks[i].Return_Date);
+                let difference = Math.abs(issueDate - returnDate);
+                let differenceInDays = difference / (1000 * 3600 * 24);
+
+
+                if (differenceInDays > 2) {
+                    charges.push((differenceInDays - 3) * 100)
+                } else {
+                    charges.push(0)
+                }
+            }
+
+            res.render('Library.ejs', { Books: books, borrowedBooks: borrowedBooks, charges: charges });
         })
     })
 
