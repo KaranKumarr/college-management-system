@@ -27,7 +27,7 @@
                     <div class="Classes-Box">
                         <h5>Class Date: <%=date%>
                         </h5>
-                        <button onclick="getAttendance(<%=i%>)">Attendance</button>
+                        <button class="add-attendance-btn" onclick="getAttendance(<%=i%>)">Attendance</button>
                     </div>
                     <%});%>
                         <%} else{ %>
@@ -36,7 +36,8 @@
                                 <h5>Sorry, There has been no classes yet</h5>
                             </div>
                             <%}%>
-                                <button onclick="addAttendance(<%=CourseID%>)">Add New Attendance</button>
+                                <button class="add-attendance-btn" onclick="addAttendance(<%=CourseID%>)">Add New
+                                    Attendance</button>
         </section>
 
         <script>

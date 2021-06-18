@@ -29,7 +29,6 @@ const db = mysql.createConnection({
 //Connecting to Mysql
 db.connect((err) => {
     if (err) throw err
-    // else console.log('connected');
 })
 
 //Rendering preLogger Page
@@ -49,6 +48,6 @@ app.use(facultyRoute);
 //Assigning the port where we will be listening
 app.listen('3000', () => {
 
-    console.log('started..');
+    console.log('server is listening..');
 
 });
