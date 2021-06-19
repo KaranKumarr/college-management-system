@@ -97,3 +97,13 @@ textarea {
   overflow: hidden;
   resize: none;
 }
+
+.link,
+.link a {
+  color: rgba(153, 43, 226, 1);
+  transition: 300ms;
+}
+.link:hover,
+.link a:hover {
+  color: rgba(153, 43, 226, 0.8);
+}

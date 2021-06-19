@@ -95,10 +95,3 @@ textarea {
   border-top: 3px solid var(--dark);
   border-bottom: 3px solid var(--dark);
 }
-#department-field a {
-  color: rgba(153, 43, 226, 1);
-  transition: 300ms;
-}
-#department-field a:hover {
-  color: rgba(153, 43, 226, 0.8);
-}
