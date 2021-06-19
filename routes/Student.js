@@ -57,7 +57,7 @@ router.post('/StudentHome', (req, res) => {
 
     let ID = req.body.studentID;
 
-    let mysql = 'SELECT Student_ID as StudentID,Student_Name as StudentName,Password as Password,Year_Joined as YearJoined, Student_NIC as StudentNIC,Department_Name as DepartmentName FROM student_academics WHERE Student_ID = ' + ID;
+    let mysql = 'SELECT Student_ID as StudentID,Student_Name as StudentName,Password as Password,Year_Joined as YearJoined, Student_NIC as StudentNIC,student_academics.Department_Name as DepartmentName,Department_Manager as DepartmentManager,Manager_Email as ManagerEmail FROM student_academics INNER JOIN departments ON student_academics.Department_Name = departments.Department_Name WHERE Student_ID = ' + ID;
 
     db.query(mysql, (err, result) => {
         if (err) {

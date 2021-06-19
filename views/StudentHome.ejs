@@ -44,8 +44,12 @@
                 </div>
                 <div class="Profile-Data-Box">
                     <h5 class="Profile-Data-Label">Department</h5>
-                    <input class="Profile-Data-Field" value=<%=Student.DepartmentName%> readonly/>
-
+                    <h5 class="Profile-Data-Field" id="department-field">
+                        <% var mailManager="mailto:" +Student.ManagerEmail %>
+                            <%=Student.DepartmentName%> - Program Manager: <a href=<%=mailManager%>>
+                                    <%=Student.DepartmentManager%>
+                                </a>
+                    </h5>
                 </div>
                 <div class="Profile-Data-Box">
                     <h5 class="Profile-Data-Label">Telephone</h5>
@@ -67,8 +71,18 @@
 
             <button class="Profile-btn">Modify</button>
 
+
         </form>
 
+        <script>
+
+
+
+
+        </script>
+
 </body>
+
+
 
 </html>
