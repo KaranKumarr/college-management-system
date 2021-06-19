@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previous Courses</title>
+    <link rel="stylesheet" href="/assets/index.css">
+    <link rel="stylesheet" href="/assets/Navbar.css">
+    <link rel="stylesheet" href="/assets/Courses.css">
+</head>
+
+<body>
+    <%- include("./partials/StudentNavbar.ejs") %>
+
+        <section class="Current-Courses">
+            <h1 class="Courses-Heading">Current Courses</h1>
+            <ul>
+                <% PreviousCourses.forEach((course)=>{%>
+
+                    <li class="Courses-Box" style="display: flex; justify-content: space-around;">
+                        <span>
+                            <h5>
+                                Course Name:
+                                <%=course.CourseName%>
+                            </h5>
+                        </span>
+                        <span>
+                            <h5>
+                                Batch:
+                                <%=course.YearTaken%>
+
+                            </h5>
+                        </span>
+
+                        <span>
+                            <h5>
+                                Marks:<%=course.Percentage%>
+                            </h5>
+                        </span>
+
+                    </li>
+
+                    <% })%>
+            </ul>
+        </section>
+        <button id="prev-courses-btn" onclick="goToCurrentCourses()">Current Courses</button>
+
+        <script>
+            const goToCurrentCourses = () => {
+
+                window.location.pathname = "/StudentCourses";
+
+                console.log(window.location);
+
+            }
+
+        </script>
+
+</body>
+
+</html>

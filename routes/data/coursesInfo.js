@@ -153,4 +153,31 @@ const getExamsSchedule = (DepartmentName) => {
 
 }
 
-module.exports = { getCurrentCourses, getAttendance, getInstructor, getSchedule, getCoursesOFInstructor, getCoursesTaken, getExamsSchedule }
+const getPreviousCourses = (StudentID) => {
+
+    const sqlQuery = 'SELECT courses_taken.Course_ID as CourseID,Student_ID as StudentID,Year_Taken as YearTaken,Course_Name as CourseName,instructor_ID as InstructorID,Percentage FROM courses_taken LEFT JOIN courses_offered ON courses_taken.Course_ID = courses_offered.Course_ID WHERE Student_ID = ' + StudentID + ' && Passed ="TRUE" ';
+
+    return new Promise((resolve, reject) => {
+
+        db.query(sqlQuery, (err, result) => {
+
+            if (err) { reject(err) } else {
+
+
+                //To Stringify The Row Data Packet Value Returned By the Query
+                let json = JSON.stringify(result);
+                //To Parse That Stringified Data To Proper Javascript Object
+                let previousCourses = JSON.parse(json);
+
+                resolve(previousCourses);
+
+            }
+
+
+        })
+
+    })
+
+}
+
+module.exports = { getCurrentCourses, getAttendance, getInstructor, getSchedule, getCoursesOFInstructor, getCoursesTaken, getExamsSchedule, getPreviousCourses }

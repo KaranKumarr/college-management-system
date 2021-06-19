@@ -11,7 +11,7 @@ let bcrypt = require('bcrypt');
 //Getting Student Information
 let { getStudentInfo } = require('./data/studentInfo');
 //Getting Student's Course Information 
-let { getCurrentCourses, getAttendance, getInstructor, getSchedule, getExamsSchedule } = require('./data/coursesInfo');
+let { getCurrentCourses, getAttendance, getInstructor, getSchedule, getExamsSchedule, getPreviousCourses } = require('./data/coursesInfo');
 //To get Library Details
 const { getBooks, borrowBook, getBorrowedBooks, returnBook } = require('./data/Library');
 //To Store Cache
@@ -105,7 +105,7 @@ router.get('/StudentHome', (req, res) => {
 
 
 
-//Courses Route
+//Current Courses Route
 router.get('/StudentCourses', (req, res) => {
 
     let Student = myCache.get("Student");
@@ -114,6 +114,19 @@ router.get('/StudentCourses', (req, res) => {
         // console.log(CurrentCourses);
         myCache.set("CurrentCourses", CurrentCourses, 30000);
         res.render('StudentCourses.ejs', { CurrentCourses: CurrentCourses });
+    })
+
+})
+
+//Previous Courses Route
+router.get("/StudentCourses/passed", (req, res) => {
+
+    let Student = myCache.get("Student");
+
+    getPreviousCourses(Student.StudentID).then((PreviousCourses) => {
+
+        res.render("StudentPreviousCourses.ejs", { PreviousCourses: PreviousCourses })
+
     })
 
 })
