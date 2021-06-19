@@ -99,10 +99,10 @@
                         <%if( borrowedBooks[i].Return_Date===null ){%>
                             <% var url='/Library/return/' +borrowedBooks[i].book_ID%>
 
-                                <form method="POST" action=<%=url%> >
-                                    <input style="display: none;" type="text" value=<%=borrowedBooks[i].book_ID%>>
+                                <form method="POST" id="form-return" 
+                                    action=<%=url%> >
 
-                                    <button>Return</button>
+                                    <button style="">Return</button>
                                 </form>
                                 <%} else{%>
                                     <h5 style="
