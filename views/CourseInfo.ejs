@@ -25,15 +25,19 @@
                 <%=CourseName%>
             </h1>
             <div class="Courses-Data">
-                <h5 class="Courses-Box" style="justify-content: center;">Instructer: <%=Instructor.instructor_Name%>
-                </h5>
-                <h5 class="Courses-Box" style="justify-content: center;">Class Days: <%=Schedule.ClassDay%>
-                </h5>
-                <h5 class="Courses-Box" style="justify-content: center;">Class Timing: <%=Schedule.ClassTime%>
-                </h5>
-                <h5 class="Courses-Box" style="justify-content: center;">Duration: 02 Hours</h5>
-                <h5 class="Courses-Box" style="justify-content: center;">Classroom: <%=Schedule.Classroom%>
-                </h5>
+                <% var mailInstructor="mailto:" +Instructor.Instructer_Email%>
+                    <h5 class="Courses-Box" style="justify-content: center;">Instructer: <a href=<%=mailInstructor%>
+                            class="link">
+                            <%=Instructor.instructor_Name%>
+                        </a>
+                    </h5>
+                    <h5 class="Courses-Box" style="justify-content: center;">Class Days: <%=Schedule.ClassDay%>
+                    </h5>
+                    <h5 class="Courses-Box" style="justify-content: center;">Class Timing: <%=Schedule.ClassTime%>
+                    </h5>
+                    <h5 class="Courses-Box" style="justify-content: center;">Duration: 02 Hours</h5>
+                    <h5 class="Courses-Box" style="justify-content: center;">Classroom: <%=Schedule.Classroom%>
+                    </h5>
             </div>
         </section>
 
