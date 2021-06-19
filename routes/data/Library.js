@@ -67,7 +67,6 @@ const borrowBook = (bookID, studentID) => {
 
     let currentDate = new Date();
     // currentDate = currentDate.toISOString(currentDate);
-    console.log(currentDate.toISOString().substring(0, 10));
     const sqlQuery = 'INSERT INTO books_borrowed(Book_ID,Issue_Date,Student_ID) VALUES ?';
     const values = [[bookID, currentDate, studentID]];
     db.query(sqlQuery, [values], (err, result) => {
@@ -85,7 +84,9 @@ const getBorrowedBooks = (studentID) => {
 
 
     return new Promise((resolve, reject) => {
-        const sqlQuery = 'SELECT Book_ID,DATE_FORMAT(Issue_Date,"%d %M %Y") as Issue_Date,DATE_FORMAT(Return_Date,"%d %M %Y") as Return_Date,Student_ID FROM books_borrowed WHERE Student_ID =' + studentID + ' ORDER BY ISSUE_DATE';
+        const sqlQuery = 'SELECT books_borrowed.Book_ID as book_ID,DATE_FORMAT(Issue_Date,"%d %M %Y") as Issue_Date,DATE_FORMAT(Return_Date,"%d %M %Y") as Return_Date,Student_ID,Book_Name FROM books_borrowed INNER JOIN library ON library.Book_ID = books_borrowed.Book_ID WHERE Student_ID = '+studentID+' ORDER BY ISSUE_DATE';
+        
+
 
         db.query(sqlQuery, (err, result) => {
 
@@ -106,8 +107,6 @@ const returnBook = (bookID, studentID) => {
 
     let currentDate = new Date();
     // currentDate = currentDate.toISOString(currentDate);
-    console.log(currentDate.toISOString().substring(0, 10));
-    console.log('-------------' + bookID + '-------------');
     const sqlQuery = 'UPDATE books_borrowed SET return_date = "' + currentDate.toISOString().substring(0, 10) + '" WHERE Book_ID = ' + bookID;
     db.query(sqlQuery, (err, result) => {
 

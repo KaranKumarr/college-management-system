@@ -175,17 +175,13 @@ router.post('/Modify/Student', (req, res) => {
     let newTelephone = req.body.Telephone;
     let newStudentAddress = req.body.StudentAddress;
     let Student = myCache.get("Student");
-    console.log(newTelephone);
-    console.log(newStudentAddress);
     let sizeOfTelephone = newTelephone.toString().length;
-    console.log(sizeOfTelephone);
     if (sizeOfTelephone === 11) {
         let sqlQuery = 'UPDATE Student_info SET Student_Address="' + newStudentAddress + '",Student_Phone = ' + newTelephone + ' WHERE Student_NIC = ' + Student.StudentNIC;
 
         db.query(sqlQuery, (err, result) => {
 
             if (err) { throw err }
-            console.log(result);
             res.redirect('/StudentHome');
         })
     }
@@ -212,12 +208,13 @@ router.get('/Library', (req, res) => {
 
 
     const StudentID = myCache.get("Student").StudentID;
-    // console.log(StudentID);
     getBooks().then((books) => {
 
         getBorrowedBooks(StudentID).then((borrowedBooks) => {
 
             let charges = new Array();
+
+
 
             for (let i = 0; i < borrowedBooks.length; i++) {
 
@@ -226,8 +223,9 @@ router.get('/Library', (req, res) => {
                 let difference = Math.abs(issueDate - returnDate);
                 let differenceInDays = difference / (1000 * 3600 * 24);
 
-
-                if (differenceInDays > 2) {
+                if (differenceInDays > 18700) {
+                    charges.push('Not Returned')
+                } else if (differenceInDays > 2) {
                     charges.push((differenceInDays - 3) * 100)
                 } else {
                     charges.push(0)
@@ -256,11 +254,15 @@ router.get('/Library/borrow', (req, res) => {
     res.redirect('/Library')
 })
 
-router.post('/Library/return', (req, res) => {
+router.post('/Library/return/:returnBookID', (req, res) => {
 
-    const bookID = req.body.returnBookID;
+    const bookID = req.params.returnBookID;
     const StudentID = myCache.get("Student").StudentID;
-    console.log(bookID);
+    const index = req.body.returnBookIDIndex;
+
+    // console.log(index);
+    // console.log(bookID);
+    // console.log(bookID);
     returnBook(bookID, StudentID);
     res.redirect('/Library');
 

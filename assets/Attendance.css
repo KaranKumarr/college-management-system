@@ -94,8 +94,8 @@ li {
 }
 
 .Attendance-Box input,
-.Attendance-Box h5,
 .Attendance-Box select,
+.Attendance-Box h5,
 .Attendance-Box button {
   width: 100%;
 }

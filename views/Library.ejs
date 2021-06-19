@@ -78,46 +78,42 @@
                     </h5>
                 </li>
 
+                <%for(let i=0;i<borrowedBooks.length;i++){%>
+                    <li class="Library-Box">
 
-                <%borrowedBooks.forEach((borrowedBook,i)=>{%>
-                    <%Books.forEach((book)=>{%>
-                        <%if(borrowedBook.Book_ID===book.Book_ID){%>
-                            <form action="/Library/return" method="POST">
-                                <li class="Library-Box">
+                        <h5>
+                            <%=borrowedBooks[i].Book_Name%>
+                        </h5>
+                        <h5>
+                            <%= borrowedBooks[i].Issue_Date%>
+                        </h5>
+                        <h5>
+                            <%if(charges[i]=== 0){%>
+                                Return On Time
+                                <%}else{%>
+                                    <span style="color:red">
+                                        <%=charges[i]%>
+                                    </span>
+                                    <%}%>
+                        </h5>
+                        <%if( borrowedBooks[i].Return_Date===null ){%>
+                            <% var url='/Library/return/' +borrowedBooks[i].book_ID%>
 
-                                    <input name="returnBookID" type="text" value=<%=book.Book_ID%>
-                                    style="display:
-                                    none;">
-                                    <h5>
-                                        <%=book.Book_Name%>
-                                    </h5>
-                                    <h5>
-                                        <%=borrowedBook.Issue_Date%>
-                                    </h5>
-                                    <h5>
-                                        <%if(charges[i]=== 0){%>
-                                            Return On Time
-                                            <%}else{%>
-                                                <span style="color:red">
-                                                    <%=charges[i]%>
-                                                </span>
-                                                <%}%>
-                                    </h5>
-                                    <%if(borrowedBook.Return_Date===null ){%>
-                                        <button>Return</button>
-                                        <%} else{%>
-                                            <h5 style="
+                                <form method="POST" action=<%=url%> >
+                                    <input style="display: none;" type="text" value=<%=borrowedBooks[i].book_ID%>>
+
+                                    <button>Return</button>
+                                </form>
+                                <%} else{%>
+                                    <h5 style="
                                             text-align: center; width:50%;">
-                                                <%=borrowedBook.Return_Date%>
-                                            </h5>
-                                </li>
-                            </form>
+                                        <%= borrowedBooks[i].Return_Date%>
+                                    </h5>
+                    </li>
 
-                            <%}%>
-                                <%}%>
 
-                                    <%})%>
-                                        <%})%>
+                    <%}%>
+                        <%}%>
 
 
             </div>
@@ -147,7 +143,11 @@
                 document.getElementById("hidden-btn").style.display = 'block';
 
             }
+            const checkIndex = () => {
 
+                let i = document.getElementById('inputID').value;
+                console.log(i);
+            }
         </script>
 
 </body>
