@@ -231,10 +231,13 @@ router.get('/Library', (req, res) => {
 
             for (let i = 0; i < borrowedBooks.length; i++) {
 
+                let date = new Date()
                 let issueDate = new Date(borrowedBooks[i].Issue_Date);
-                let returnDate = new Date(borrowedBooks[i].Return_Date);
+                let returnDate = new Date(date.toLocaleDateString());
                 let difference = Math.abs(issueDate - returnDate);
                 let differenceInDays = difference / (1000 * 3600 * 24);
+
+
 
                 if (differenceInDays > 18700) {
                     charges.push('Not Returned')
