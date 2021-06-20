@@ -13,9 +13,9 @@ li {
 
 .Attendance-Heading-Box {
   color: var(--light);
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   background-color: var(--dark);
-  padding: 1rem;
+  padding: 0.8rem;
   display: flex;
   justify-content: space-around;
   font-family: var(--dFont);
@@ -24,10 +24,10 @@ li {
 
 .Attendance-Box {
   margin: 0.5rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   display: flex;
   align-items: center;
-  padding: 1rem;
+  padding: 0.8rem;
   justify-content: space-around;
   border-radius: 7.5px;
   border: 0.3rem solid var(--dark);
@@ -39,10 +39,10 @@ li {
 }
 
 .Attendance-Box input {
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.8rem;
   outline: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-family: var(--dFont);
   color: var(--dark);
   background-color: var(--light);
@@ -51,20 +51,20 @@ li {
 
 .Attendance-Box select {
   background-color: var(--light);
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.8rem;
   border-radius: 0.35rem;
   color: var(--dark);
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .Attendance-Box button {
   margin: 0 1rem;
   border: 0.1rem solid var(--dark);
   background-color: var(--light);
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.8rem;
   border-radius: 0.35rem;
   color: var(--dark);
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   transition: ease-in-out 400ms;
 }
 
@@ -98,4 +98,8 @@ li {
 .Attendance-Box h5,
 .Attendance-Box button {
   width: 100%;
+}
+
+.Attendance-Box h5 {
+  text-align: center;
 }
