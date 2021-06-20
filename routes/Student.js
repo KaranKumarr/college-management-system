@@ -17,9 +17,12 @@ const { getBooks, borrowBook, getBorrowedBooks, returnBook } = require('./data/L
 //To Store Cache
 const NodeCache = require("node-cache");
 const myCache = new NodeCache();
-//enabling body parser
+//enabling body parser that will allow us to get Input Field Values From Html back to this file
 router.use(bodyParser.urlencoded({ extended: true }))
 router.use(express.static('public'));
+
+//Setting isLogged to false initally
+let isLogged = false;
 
 //building connection to database
 const db = mysql.createConnection({
@@ -36,7 +39,6 @@ db.connect((err) => {
     else console.log('connected');
 })
 
-let isLogged = false;
 
 //Login page OR home page if logged in
 router.get('/Student', (req, res) => {
@@ -84,7 +86,6 @@ router.post('/StudentHome', (req, res) => {
             }
             //Passing Student's Data To HTML(EJS) Page
             getStudentInfo(StudentAca.StudentNIC).then((StudentInfo) => {
-
                 let tempStudentHolder = myCache.get("Student");
                 myCache.set("StudentInfo", StudentInfo[0], 3000)
                 // console.log(tempStudentHolder)
@@ -98,6 +99,8 @@ router.post('/StudentHome', (req, res) => {
 
 })
 
+
+//Renders The Student Home Route
 router.get('/StudentHome', (req, res) => {
     // console.log(myCache.get("Student"));
     res.render("StudentHome.ejs", { Student: myCache.get("Student"), StudentInfo: myCache.get("StudentInfo") })
@@ -117,6 +120,7 @@ router.get('/StudentCourses', (req, res) => {
     })
 
 })
+
 
 //Previous Courses Route
 router.get("/StudentCourses/passed", (req, res) => {
@@ -205,6 +209,7 @@ router.post('/Modify/Student', (req, res) => {
 
 })
 
+//Exams Schedule Route
 router.get('/Exams', (req, res) => {
 
     let departmentName = myCache.get("Student").DepartmentName;
@@ -265,6 +270,8 @@ router.get('/Library', (req, res) => {
 
 })
 
+
+//Borrowing a Book Route
 router.post('/Library/borrow', (req, res) => {
 
     const bookID = req.body.bookID;
@@ -274,6 +281,8 @@ router.post('/Library/borrow', (req, res) => {
 
 })
 
+
+//Routes to see books that have been borrowed by the student
 router.get('/Library/borrow', (req, res) => {
     const bookID = req.query.books;
     const StudentID = myCache.get("Student").StudentID;
@@ -281,15 +290,14 @@ router.get('/Library/borrow', (req, res) => {
     res.redirect('/Library')
 })
 
+
+//Returning a book that was borrowed
 router.post('/Library/return/:returnBookID', (req, res) => {
 
     const bookID = req.params.returnBookID;
     const StudentID = myCache.get("Student").StudentID;
     const index = req.body.returnBookIDIndex;
 
-    // console.log(index);
-    // console.log(bookID);
-    // console.log(bookID);
     returnBook(bookID, StudentID);
     res.redirect('/Library');
 
