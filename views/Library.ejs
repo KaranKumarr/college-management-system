@@ -37,8 +37,9 @@
                                     </option>
                                     <%}%>
                         </select>
-                        <button id="hidden-btn">Borrow Search
-                            Book?</button>
+                        <%if(numberOfBorrowedBooks<3){%> <button id="hidden-btn">Borrow Search
+                                Book?</button>
+                            <%}%>
                     </form>
 
 
@@ -54,7 +55,11 @@
                                     <h5>
                                         <%=book.Book_Author%>
                                     </h5>
-                                    <button>Borrow</button>
+                                    <%if(numberOfBorrowedBooks<3){%>
+                                        <button>Borrow</button>
+                                        <%}else{%>
+                                            <h5>Can't Borrow</h5>
+                                            <%}%>
                                 </li>
                             </form>
                             <%}%>
@@ -99,8 +104,7 @@
                         <%if( borrowedBooks[i].Return_Date===null ){%>
                             <% var url='/Library/return/' +borrowedBooks[i].book_ID%>
 
-                                <form method="POST" id="form-return" 
-                                    action=<%=url%> >
+                                <form method="POST" id="form-return" action=<%=url%> >
 
                                     <button style="">Return</button>
                                 </form>

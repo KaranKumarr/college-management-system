@@ -243,9 +243,20 @@ router.get('/Library', (req, res) => {
                 } else {
                     charges.push(0)
                 }
+
             }
 
-            res.render('Library.ejs', { Books: books, borrowedBooks: borrowedBooks, charges: charges });
+            let numberOfBorrowedBooks = 0;
+
+            for (let i = 0; i < borrowedBooks.length; i++) {
+
+                if (borrowedBooks[i].Book_Available === 'False') {
+                    numberOfBorrowedBooks++;
+                }
+            }
+
+
+            res.render('Library.ejs', { Books: books, borrowedBooks: borrowedBooks, charges: charges, numberOfBorrowedBooks: numberOfBorrowedBooks });
         })
     })
 

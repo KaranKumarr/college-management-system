@@ -84,8 +84,8 @@ const getBorrowedBooks = (studentID) => {
 
 
     return new Promise((resolve, reject) => {
-        const sqlQuery = 'SELECT books_borrowed.Book_ID as book_ID,DATE_FORMAT(Issue_Date,"%d %M %Y") as Issue_Date,DATE_FORMAT(Return_Date,"%d %M %Y") as Return_Date,Student_ID,Book_Name FROM books_borrowed INNER JOIN library ON library.Book_ID = books_borrowed.Book_ID WHERE Student_ID = '+studentID+' ORDER BY ISSUE_DATE';
-        
+        const sqlQuery = 'SELECT books_borrowed.Book_ID as book_ID,DATE_FORMAT(Issue_Date,"%d %M %Y") as Issue_Date,DATE_FORMAT(Return_Date,"%d %M %Y") as Return_Date,Student_ID,Book_Name,Book_Available FROM books_borrowed INNER JOIN library ON library.Book_ID = books_borrowed.Book_ID WHERE Student_ID = ' + studentID + ' ORDER BY ISSUE_DATE';
+
 
 
         db.query(sqlQuery, (err, result) => {

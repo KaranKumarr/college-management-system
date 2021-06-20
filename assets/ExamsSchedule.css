@@ -13,9 +13,9 @@ li {
 
 .Exams-Heading-Box {
   color: var(--light);
-  font-size: 1rem;
+  font-size: 0.8rem;
   background-color: var(--dark);
-  padding: 0.5rem;
+  padding: 0.4rem;
   display: flex;
   justify-content: space-around;
   font-family: var(--dFont);
@@ -24,10 +24,10 @@ li {
 
 .Exams-Box {
   margin: 0.5rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   display: flex;
   align-items: center;
-  padding: 1rem;
+  padding: 0.8rem;
   justify-content: space-around;
   border-radius: 7.5px;
   border: 0.3rem solid var(--dark);
