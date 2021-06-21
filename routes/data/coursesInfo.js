@@ -108,7 +108,7 @@ const getCoursesOFInstructor = (InstructorID) => {
 
 const getCoursesTaken = (CourseID) => {
 
-    let sqlQuery = 'SELECT Student_Name as StudentName,Course_ID as CourseID, courses_taken.Student_ID as StudentID, Year_Taken as YearTaken, Passed as Passed, Percentage as Percentage FROM courses_taken LEFT JOIN student_academics ON courses_taken.Student_ID = student_academics.Student_ID WHERE Passed = "False" && Course_ID = ' + CourseID;
+    let sqlQuery = 'SELECT Student_Name as StudentName,Course_ID as CourseID, courses_taken.Student_ID as StudentID, Year_Taken as YearTaken, Passed as Passed, Percentage as Percentage FROM courses_taken LEFT JOIN student_academics ON courses_taken.Student_ID = student_academics.Student_ID WHERE Passed = "False" && Course_ID = ' + CourseID + ' ORDER BY STUDENT_Name';
 
     return new Promise((resolve, reject) => {
         db.query(sqlQuery, (err, result) => {

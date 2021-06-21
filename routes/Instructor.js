@@ -208,7 +208,6 @@ router.get('/Add/Attendance/:courseID', (req, res) => {
         console.log(Courses);
         FacultyCache.set("CourseID", courseID, 3000)
         res.render("AddAttendance.ejs", { Courses: Courses })
-
     })
 
 })
