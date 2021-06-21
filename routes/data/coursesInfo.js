@@ -13,6 +13,7 @@ db.connect((err) => {
 })
 
 
+//Getting currently enrolled courses of a student
 const getCurrentCourses = (StudentID) => {
 
     let sqlQuery = 'SELECT courses_taken.Course_ID as CourseID,Student_ID as StudentID,Year_Taken as YearTaken,Course_Name as CourseName,instructor_ID as InstructorID FROM courses_taken LEFT JOIN courses_offered ON courses_taken.Course_ID = courses_offered.Course_ID WHERE Student_ID = ' + StudentID + ' && Passed = "FALSE"';
@@ -35,6 +36,7 @@ const getCurrentCourses = (StudentID) => {
     })
 }
 
+//Getting Attendance of a student
 const getAttendance = (CourseID, StudentID) => {
 
     let sqlQuery = 'SELECT  wasPresent as wasPresent,DATE_FORMAT(class_date,"%d %M %Y") as classDate,Course_ID as CourseID, Student_ID as StudentID FROM attendance WHERE Course_ID =' + CourseID + '&& Student_ID =' + StudentID + ' ORDER BY class_date';
@@ -51,6 +53,8 @@ const getAttendance = (CourseID, StudentID) => {
     })
 }
 
+
+//Getting Instructor for a certain course
 const getInstructor = (InstructorID) => {
 
     let sqlQuery = "SELECT * FROM instructors WHERE Instructor_ID = " + InstructorID;
@@ -67,6 +71,8 @@ const getInstructor = (InstructorID) => {
     })
 }
 
+
+//Getting class schedule
 const getSchedule = (CourseID) => {
 
     let sqlQuery = "SELECT Date_Format(Class_Time,'%r') as ClassTime,Class_Day as ClassDay, Class_Room as Classroom, Course_ID as CourseID FROM class_schedule WHERE Course_ID = " + CourseID;
@@ -84,6 +90,7 @@ const getSchedule = (CourseID) => {
 
 }
 
+//Getting courses assigned to Instructor
 const getCoursesOFInstructor = (InstructorID) => {
 
     let sqlQuery = 'SELECT course_ID as courseID,Course_Name as CourseName, Department_Name as DepartmentName,Instructor_ID as InstructorID FROM courses_offered WHERE Instructor_ID = ' + InstructorID;
@@ -106,6 +113,7 @@ const getCoursesOFInstructor = (InstructorID) => {
     })
 }
 
+//Getting list of students in a certain course
 const getCoursesTaken = (CourseID) => {
 
     let sqlQuery = 'SELECT Student_Name as StudentName,Course_ID as CourseID, courses_taken.Student_ID as StudentID, Year_Taken as YearTaken, Passed as Passed, Percentage as Percentage FROM courses_taken LEFT JOIN student_academics ON courses_taken.Student_ID = student_academics.Student_ID WHERE Passed = "False" && Course_ID = ' + CourseID + ' ORDER BY STUDENT_Name';
@@ -127,6 +135,8 @@ const getCoursesTaken = (CourseID) => {
     })
 }
 
+
+//Getting Exams Schedule of a department
 const getExamsSchedule = (DepartmentName) => {
 
     let sqlQuery = 'SELECT DATE_FORMAT(exam_date,"%d %M %Y") as ExamDate,Date_Format(Exam_Time,"%r") as  ExamTime,Class_Room as Classroom, Course_Name as CourseName FROM exams_schedule LEFT JOIN courses_offered ON exams_schedule.Course_ID = courses_offered.Course_ID Where Department_Name = "' + DepartmentName + '" ORDER BY exam_date';
@@ -153,6 +163,8 @@ const getExamsSchedule = (DepartmentName) => {
 
 }
 
+
+//Getting previously cleared courses
 const getPreviousCourses = (StudentID) => {
 
     const sqlQuery = 'SELECT courses_taken.Course_ID as CourseID,Student_ID as StudentID,Year_Taken as YearTaken,Course_Name as CourseName,instructor_ID as InstructorID,Percentage FROM courses_taken LEFT JOIN courses_offered ON courses_taken.Course_ID = courses_offered.Course_ID WHERE Student_ID = ' + StudentID + ' && Passed ="TRUE" ';

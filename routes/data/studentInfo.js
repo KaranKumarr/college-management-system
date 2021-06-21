@@ -13,6 +13,7 @@ db.connect((err) => {
 })
 
 
+//Getting information about student
 function getStudentInfo(NIC) {
 
 
@@ -34,6 +35,8 @@ function getStudentInfo(NIC) {
 
 }
 
+
+//Getting list of all the students
 const getStudentList = () => {
 
     let sqlQuery = 'SELECT Student_Name as StudentName,Student_ID as StudentID From Student_Academics';

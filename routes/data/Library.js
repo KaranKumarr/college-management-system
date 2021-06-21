@@ -12,6 +12,7 @@ db.connect((err) => {
     else console.log('connected');
 })
 
+//Getting books to display on Library Page
 const getBooks = () => {
 
 
@@ -38,6 +39,8 @@ const getBooks = () => {
 
 }
 
+
+//Updating state of book after it has been borrowed or returned
 const updateBookState = (bookID, bookState) => {
 
 
@@ -63,6 +66,7 @@ const updateBookState = (bookID, bookState) => {
     }
 }
 
+//Borrowing book
 const borrowBook = (bookID, studentID) => {
 
     let currentDate = new Date();
@@ -80,6 +84,8 @@ const borrowBook = (bookID, studentID) => {
 
 }
 
+
+//Getting all the books that has been borrowed by logged in student
 const getBorrowedBooks = (studentID) => {
 
 
@@ -103,6 +109,8 @@ const getBorrowedBooks = (studentID) => {
     })
 }
 
+
+//Returning a book
 const returnBook = (bookID, studentID) => {
 
     let currentDate = new Date();

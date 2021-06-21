@@ -15,10 +15,8 @@ let bcrypt = require('bcrypt');
 //Getting Instructor Information
 let { getInstructorInfo, getAttendance } = require('./data/instructorInfo');
 let { getCoursesOFInstructor, getSchedule, getCoursesTaken } = require('./data/coursesInfo');
-
 //get Student Name For Attendance Sheet
 let { getStudentList } = require('./data/studentInfo');
-
 
 //building connection to database
 const db = mysql.createConnection({

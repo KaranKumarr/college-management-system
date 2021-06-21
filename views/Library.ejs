@@ -37,7 +37,7 @@
                                     </option>
                                     <%}%>
                         </select>
-                        <%if(numberOfBorrowedBooks<3){%> <button id="hidden-btn">Borrow Search
+                        <%if(numberOfBorrowedBooks<=3){%> <button id="hidden-btn">Borrow Search
                                 Book?</button>
                             <%}%>
                     </form>
@@ -55,7 +55,7 @@
                                     <h5>
                                         <%=book.Book_Author%>
                                     </h5>
-                                    <%if(numberOfBorrowedBooks<3){%>
+                                    <%if(numberOfBorrowedBooks<=3){%>
                                         <button>Borrow</button>
                                         <%}else{%>
                                             <h5>Can't Borrow</h5>
